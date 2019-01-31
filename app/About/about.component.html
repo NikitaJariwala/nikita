@@ -1,3 +1,115 @@
-<div aria-grabbed="false"></div>
-<h1>hello</h1>
-<button class="btn-success" (click)="onButtonClick()">hee</button>
+<div class="container" width="800px" id="invoice">
+  <div class="col-xs-12" style="text-align:center"> 
+    || Shree Ram ||
+  </div>
+  <div class="col-xs-12 heading">
+
+    <h1>
+        <img [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" width="50" style="margin-right:5%"/>
+        <b>Shakshi Traders</b>
+      </h1>
+  </div>
+  <div class="col-xs-12 heading">
+      <h5><b>Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</b></h5>
+    </div>
+    <div class="col-xs-12 heading1">
+        <h5><b>91,Laxmikant Society, katargam, SURAT-GUJRAT.</b></h5>
+      </div>
+      <div class="col-xs-12 heading1">
+          <h5><b>GSTIN NO : 24ATCPJ7889F1ZE</b></h5>
+        </div>
+     
+  <div class="row branding">
+    <div class="col-xs-6">
+      <div class="invoice-number-container">
+
+        <label for="invoice-number">Invoice #</label><input type="text" id="invoice-number" [(ngModel)]="invoice.invoice_number" />
+      </div>
+    </div>
+    <div class="col-xs-6 logo-container">
+      <input type="file" id="imgInp" (change)="readUrl($event)" />
+      <div>
+        <div class="noPrint" [hidden]="printMode">
+          <button (click)="editLogo()">Edit Logo</button>
+          <a (click)="toggleLogo()" id="remove_logo">{{ logoRemoved ? 'Show' : 'Hide' }} logo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row infos">
+    <div class="col-xs-6">
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.name" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.web_link" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.address1" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.address2" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.postal" /></div>
+      <div class="input-container" data-[hidden]='printMode'>
+        <!-- <select [(ngModel)]='currencySymbol' ng-options='currency.symbol as currency.name for currency in availableCurrencies'></select> -->
+      </div>
+    </div>
+    <div class="col-xs-6 right">
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.name" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.web_link" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.address1" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.address2" /></div>
+      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.postal" /></div>
+    </div>
+  </div>
+  <div class="items-table">
+    <div class="row header">
+      <div class="col-xs-1">&nbsp;</div>
+      <div class="col-xs-5">Description</div>
+      <div class="col-xs-2">Quantity</div>
+      <div class="col-xs-2">Cost {{currencySymbol}}</div>
+      <div class="col-xs-2 text-right">Total</div>
+    </div>
+    <div class="row invoice-item" *ngFor="let item of invoice.items">
+      <div class="col-xs-1 remove-item-container">
+        <button [hidden]="printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
+      </div>
+      <div class="col-xs-5 input-container">
+        <input [(ngModel)]="item.description" placeholder="Description" />
+      </div>
+      <div class="col-xs-2 input-container">
+        <input [(ngModel)]="item.qty" value="1" size="4" required placeholder="Quantity" />
+      </div>
+      <div class="col-xs-2 input-container">
+        <input [(ngModel)]="item.cost" value="0.00" required size="6" placeholder="Cost" />
+      </div>
+      <div class="col-xs-2 text-right input-container">
+        {{item.cost * item.qty | currency: currencySymbol}}
+      </div>
+    </div>
+    <div class="row invoice-item">
+      <div class="col-xs-12 add-item-container" [hidden]="printMode">
+        <button class="btn btn-primary" (click)="addItem()">[+]</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10 text-right">Sub Total</div>
+      <div class="col-xs-2 text-right">{{invoiceSubTotal() | currency: currencySymbol}}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10 text-right">Tax(%): <input [(ngModel)]="invoice.tax" style="width:43px"></div>
+      <div class="col-xs-2 text-right">{{calculateTax() | currency: currencySymbol}}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10 text-right">Grand Total:</div>
+      <div class="col-xs-2 text-right">{{calculateGrandTotal() | currency: currencySymbol}}</div>
+    </div>
+  </div>
+  <div class="row noPrint actions">
+    <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()">Print</a>
+    <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
+    <a href="#" class="btn btn-primary" [hidden]="printMode" (click)="printMode = true;">Turn On Print Mode</a>
+    <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printMode = false;">Turn Off Print Mode</a>
+  </div>
+</div>
+
+<div [hidden]="printMode" class="copy noPrint">
+  <a href="https://jasdeep.ca/?utm_source=angular_invoicing">Jasdeep Singh</a> &amp;
+  <a href="https://github.com/manpreetrules">Manpreet Singh</a>
+  Made with
+  <span class="love">&#9829;</span> in Toronto by
+  <a href="https://metawarelabs.com/?utm_source=angular_invoicing">Metaware Labs Inc.</a>
+</div>
