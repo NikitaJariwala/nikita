@@ -35,6 +35,7 @@
 
 .invoice-number-container * {
   font-weight:bold;
+
 }
 
 .items-table .row:nth-child(even) {
@@ -59,7 +60,6 @@ input:focus {
 
 .heading1 {
     color:#3c0cec;
-    margin-bottom:0.5em;
     text-align:center;
     line-height:1.5em;
     border-bottom:2px solid rgba(85, 85, 85, 0.45);
@@ -69,15 +69,21 @@ input:focus {
     border-bottom:2px solid rgba(85, 85, 85, 0.45);
 
   }
+  .row .borderbottom1px {
+    border-bottom: 1px solid rgba(85, 85, 85, 0.45);
+    padding-left:15px;
+
+  }
 .branding {
-  padding-bottom:2em;
   border-bottom:1px solid #ddd;
 }
 .logo-container {
   text-align:right;
+  border-left:2px solid rgba(85, 85, 85, 0.45);
 }
 .infos .right {
   text-align:right;
+  border-left:2px solid rgba(85, 85, 85, 0.45);
 }
 .infos .right input {
   text-align:right;
@@ -130,7 +136,7 @@ body{
 }
 
 div.container{
-  width: 800px;
+  border:1px solid #555
 }
 
 #imgInp{
