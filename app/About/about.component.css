@@ -69,9 +69,14 @@ input:focus {
     border-bottom:2px solid rgba(85, 85, 85, 0.45);
 
   }
+
+  .borderleft {
+    border-left:1px solid rgba(85, 85, 85, 0.45);
+  }
   .row .borderbottom1px {
     border-bottom: 1px solid rgba(85, 85, 85, 0.45);
     padding-left:15px;
+    font-size:12px;
 
   }
 .branding {
@@ -82,14 +87,15 @@ input:focus {
   border-left:2px solid rgba(85, 85, 85, 0.45);
 }
 .infos .right {
-  text-align:right;
-  border-left:2px solid rgba(85, 85, 85, 0.45);
+  border-left:1px solid rgba(85, 85, 85, 0.45);
 }
-.infos .right input {
-  text-align:right;
-}
+
 .infos .input-container {
   padding:3px 0;
+}
+.col-xs-2 .input-container .borderleft{
+  border-left:1px solid rgba(85, 85, 85, 0.45);
+
 }
 
 .header.row {
@@ -126,9 +132,6 @@ body{
   padding:20px;
 }
 
-.infos input{
-  width: 300px;
-}
 
 .align-right input{
   text-align:right;

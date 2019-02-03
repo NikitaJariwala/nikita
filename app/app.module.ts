@@ -7,6 +7,7 @@ import { AppComponent }   from './app.component';
 import {HomeComponent} from "./Home/home.component";
 import {AboutComponent} from "./About/about.component";
 import { CommonModule } from '@angular/common';
+import { NgxElectronModule } from 'ngx-electron';
 
 const appRoutes: Routes = [
     { path: 'home', component: HomeComponent },

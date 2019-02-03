@@ -34,54 +34,59 @@
           <a (click)="toggleLogo()" id="remove_logo">{{ logoRemoved ? 'Show' : 'Hide' }} logo</a>
         </div>
       </div>
-      <div class="row borderbottom1px"><h6 >Original for Recipient</h6></div>
-      <div class="row borderbottom1px"><h6>Duplicate for Supplier/ Transporter</h6></div>
-      <div class="row borderbottom1px"><h6 >Triplicate for Supplier</h6></div>
+      <div class="row borderbottom1px">Original for Recipient</div>
+      <div class="row borderbottom1px">Duplicate for Supplier/ Transporter</div>
+      <div class="row borderbottom1px">Triplicate for Supplier</div>
 
     </div>
   </div>
   <div class="row infos">
-    <div class="col-xs-6">
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.name" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.web_link" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.address1" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.address2" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.customer_info.postal" /></div>
-      <div class="input-container" data-[hidden]='printMode'>
-        <!-- <select [(ngModel)]='currencySymbol' ng-options='currency.symbol as currency.name for currency in availableCurrencies'></select> -->
+    <div class="col-xs-7">
+      <div style="font-size:13px"><b >M/s.</b><input style="margin-left: 2%; font-size:13px" type="text" [(ngModel)]="invoice.customer_info.name" /></div>
+      <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px"type="text" [(ngModel)]="invoice.customer_info.no" /></div>
+      <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px"type="text" [(ngModel)]="invoice.customer_info.address1" /></div>
+      <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px"type="text" [(ngModel)]="invoice.customer_info.address2" /></div>
+      <div style="font-size:13px"><b>City :</b><input style="margin-left: 3%; font-size:12px" type="text" [(ngModel)]="invoice.customer_info.city" /></div>
+      <div style="font-size:13px"><b>State :</b><input style="margin-left: 2%; font-size:12px"  type="text" [(ngModel)]="invoice.customer_info.state" /></div>
+      <div style="font-size:13px"><b>GSTIN :</b><input style="margin-left: 2%; font-size:12px" type="text" [(ngModel)]="invoice.customer_info.gstin" /></div>
+
+      <div  data-[hidden]='printMode'>
       </div>
     </div>
-    <div class="col-xs-6 right">
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.name" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.web_link" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.address1" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.address2" /></div>
-      <div class="input-container"><input type="text" [(ngModel)]="invoice.company_info.postal" /></div>
+    <div class="col-xs-5 right">
+      <div class="input-container"><b>INVOICE NO:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.invoicNo" /></div>
+      <div class="input-container"><b>DATE:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.date" /></div>
+      <div class="input-container"><b>DUE DATE:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.dueDate" /></div>
+      <div class="input-container"><b>AGENT:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.agent" /></div>
     </div>
   </div>
   <div class="items-table">
     <div class="row header">
-      <div class="col-xs-1">&nbsp;</div>
-      <div class="col-xs-5">Description</div>
-      <div class="col-xs-2">Quantity</div>
-      <div class="col-xs-2">Cost {{currencySymbol}}</div>
-      <div class="col-xs-2 text-right">Total</div>
+      <div class="col-xs-1 ">&nbsp;</div>
+      <div class="col-xs-4 ">DESCRIPTION OF ITEMS</div>
+      <div class="col-xs-2 borderleft">HSN CODE</div>
+      <div class="col-xs-1 borderleft">QTY </div>
+      <div class="col-xs-2 borderleft">Without GST RATE</div>
+      <div class="col-xs-2 borderleft text-right">Total Vaule for GST TAX</div>
     </div>
     <div class="row invoice-item" *ngFor="let item of invoice.items">
       <div class="col-xs-1 remove-item-container">
         <button [hidden]="printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
       </div>
-      <div class="col-xs-5 input-container">
+      <div class="col-xs-4 input-container">
         <input [(ngModel)]="item.description" placeholder="Description" />
       </div>
-      <div class="col-xs-2 input-container">
+      <div class="col-xs-2 input-container borderleft">
+        <input [(ngModel)]="item.hsnCode" value="1" size="4" required placeholder="HSN Code" />
+      </div>
+      <div class="col-xs-1 input-container borderleft">
         <input [(ngModel)]="item.qty" value="1" size="4" required placeholder="Quantity" />
       </div>
-      <div class="col-xs-2 input-container">
+      <div class="col-xs-2 input-container borderleft">
         <input [(ngModel)]="item.cost" value="0.00" required size="6" placeholder="Cost" />
       </div>
-      <div class="col-xs-2 text-right input-container">
-        {{item.cost * item.qty | currency: currencySymbol}}
+      <div class="col-xs-2 text-right input-container borderleft">
+        {{item.cost * item.qty }}
       </div>
     </div>
     <div class="row invoice-item">
@@ -91,17 +96,22 @@
     </div>
     <div class="row">
       <div class="col-xs-10 text-right">Sub Total</div>
-      <div class="col-xs-2 text-right">{{invoiceSubTotal() | currency: currencySymbol}}</div>
+      <div class="col-xs-2 text-right">{{invoiceSubTotal() }}</div>
     </div>
     <div class="row">
       <div class="col-xs-10 text-right">Tax(%): <input [(ngModel)]="invoice.tax" style="width:43px"></div>
-      <div class="col-xs-2 text-right">{{calculateTax() | currency: currencySymbol}}</div>
+      <div class="col-xs-2 text-right">{{calculateTax()}}</div>
     </div>
     <div class="row">
-      <div class="col-xs-10 text-right">Grand Total:</div>
-      <div class="col-xs-2 text-right">{{calculateGrandTotal() | currency: currencySymbol}}</div>
+      <div class="col-xs-10 text-right"><b>Grand Total:</b></div>
+      <div class="col-xs-2 text-right">{{calculateGrandTotal()}}</div>
+    </div>
+    <div class="row">
+      <div style="margin-left: 16px"><b>Rs :</b></div>
+      <div class="col-sm-11"><i>{{convertIntoWord()}}</i></div>
     </div>
   </div>
+  
   <div class="row noPrint actions">
     <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()">Print</a>
     <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
