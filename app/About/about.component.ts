@@ -39,12 +39,8 @@ export class AboutComponent implements OnInit {
       { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
       { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
       { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 }
+      
     
-     
-
     ]
   };
   
@@ -101,14 +97,18 @@ export class AboutComponent implements OnInit {
     });
     return total;
   };
- calculateTax () {
+ calculateSGST () {
+    return ((this.invoice.tax * this.invoiceSubTotal())/100);
+  };
+
+  calculateCGST () {
     return ((this.invoice.tax * this.invoiceSubTotal())/100);
   };
 
   // Calculates the grand total of the invoice
   calculateGrandTotal () {
     this.saveInvoice();
-    return this.calculateTax() + this.invoiceSubTotal();
+    return this.calculateSGST() +this.calculateCGST ()+ this.invoiceSubTotal();
   };
   
   getFormGroupForLine(orderLine: any): FormGroup {
@@ -118,7 +118,7 @@ export class AboutComponent implements OnInit {
   }
 
   convertIntoWord() {
-    let amount = (this.calculateTax() + this.invoiceSubTotal()).toString();
+    let amount = (this.calculateSGST() +this.calculateCGST () + this.invoiceSubTotal()).toString();
       var words = new Array();
       words[0] = '';
       words[1] = 'One';
