@@ -1,177 +1,195 @@
-<div class="container" width="800px" id="invoice">
-  <div class="col-xs-12" style="text-align:center">
-    || Shree Ram ||
-  </div>
-  <div class="col-xs-12 heading">
-
-    <h1>
-      <img [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" width="50" />
-      <b>Shakshi Traders</b>
-    </h1>
-  </div>
-  <div class="col-xs-12 heading">
-    <h5><b>Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</b></h5>
-  </div>
-  <div class="col-xs-12 heading1">
-    <h5><b>91,Laxmikant Society, katargam, SURAT-GUJRAT.</b></h5>
-  </div>
-  <div class="col-xs-12 heading1">
-    <h5><b>GSTIN NO : 24ATCPJ7889F1ZE</b></h5>
-  </div>
-
-  <div class="row branding">
-    <div class="col-sm-8">
-      <div class="invoice-number-container">
-
-        <h4>TAX INVOICE</h4>
-      </div>
+<div class="container" width="1100px" id="invoice">
+    <div class="col-xs-12" style="text-align:center">
+        || Shree Ram ||
     </div>
-    <div class="col-sm-4 logo-container">
-      <input type="file" id="imgInp" (change)="readUrl($event)" />
-      <div>
-        <div class="noPrint" [hidden]="printMode">
-          <button (click)="editLogo()">Edit Logo</button>
-          <a (click)="toggleLogo()" id="remove_logo">{{ logoRemoved ? 'Show' : 'Hide' }} logo</a>
+    <div class="col-xs-12 heading">
+
+        <h1>
+            <img [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" width="50"/>
+            <b>Shakshi Traders</b>
+        </h1>
+    </div>
+    <div class="col-xs-12 heading">
+        <h5><b>Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</b></h5>
+    </div>
+    <div class="col-xs-12 heading1">
+        <h5><b>91,Laxmikant Society, katargam, SURAT-GUJRAT.</b></h5>
+    </div>
+    <div class="col-xs-12 heading1">
+        <h5><b>GSTIN NO : 24ATCPJ7889F1ZE</b></h5>
+    </div>
+
+    <div class="row branding">
+        <div class="col-sm-8">
+            <div class="invoice-number-container">
+
+                <h4>TAX INVOICE</h4>
+            </div>
         </div>
-      </div>
-      <div class="row borderbottom1px">Original for Recipient</div>
-      <div class="row borderbottom1px">Duplicate for Supplier/ Transporter</div>
-      <div class="row borderbottom1px">Triplicate for Supplier</div>
+        <div class="col-sm-4 logo-container">
+            <input type="file" id="imgInp" (change)="readUrl($event)"/>
+            <div>
+                <div class="noPrint" [hidden]="printMode">
+                    <button (click)="editLogo()">Edit Logo</button>
+                    <a (click)="toggleLogo()" id="remove_logo">{{ logoRemoved ? 'Show' : 'Hide' }} logo</a>
+                </div>
+            </div>
+            <!--<div class="row borderbottom1px">Original for Recipient</div>-->
+            <!--<div class="row borderbottom1px">Duplicate for Supplier/ Transporter</div>-->
+            <!--<div class="row borderbottom1px">Triplicate for Supplier</div>-->
 
-    </div>
-  </div>
-  <div class="row infos">
-    <div class="col-xs-7">
-      <div style="font-size:13px"><b>M/s.</b><input style="margin-left: 2%; font-size:13px" type="text" [(ngModel)]="invoice.customer_info.name" /></div>
-      <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text" [(ngModel)]="invoice.customer_info.no" /></div>
-      <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text" [(ngModel)]="invoice.customer_info.address1" /></div>
-      <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text" [(ngModel)]="invoice.customer_info.address2" /></div>
-      <div style="font-size:13px"><b>City :</b><input style="margin-left: 3%; font-size:12px" type="text" [(ngModel)]="invoice.customer_info.city" /></div>
-      <div style="font-size:13px"><b>State :</b><input style="margin-left: 2%; font-size:12px" type="text" [(ngModel)]="invoice.customer_info.state" /></div>
-      <div style="font-size:13px"><b>GSTIN :</b><input style="margin-left: 2%; font-size:12px" type="text" [(ngModel)]="invoice.customer_info.gstin" /></div>
-
-      <div data-[hidden]='printMode'>
-      </div>
-    </div>
-    <div class="col-xs-5 right">
-      <div class="input-container"><b>INVOICE NO:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.invoicNo" /></div>
-      <div class="input-container"><b>DATE:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.date" /></div>
-      <div class="input-container"><b>DUE DATE:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.dueDate" /></div>
-      <div class="input-container"><b>AGENT:</b><input style="margin-left: 2%;" type="text" [(ngModel)]="invoice.company_info.agent" /></div>
-    </div>
-  </div>
-  <div class="items-table">
-    <div class="row header">
-      <div class="col-xs-1 ">NO</div>
-      <div class="col-xs-3 ">DESCRIPTION OF ITEMS</div>
-      <div class="col-xs-2 borderleft">HSN CODE</div>
-      <div class="col-xs-1 borderleft">QTY </div>
-      <div class="col-xs-2 borderleft">Without GST RATE</div>
-      <div class="col-xs-2 borderleft text-right">Total Vaule for GST TAX</div>
-    </div>
-    <div class="row invoice-item" *ngFor="let item of invoice.items; let i = index">
-      <div class="col-xs-1 remove-item-container" [style.display]="printMode?'none':'block'">
-        <button [hidden]="printMode"  (click)="removeItem(item)" class="btn btn-danger">[X]</button>
-      </div>
-      <div class="col-xs-1 input-container" [style.display]="printMode?'block':'none'">
-          <div [hidden]="!printMode" >{{i+1}}</div>
         </div>
-      <div class="col-xs-3 input-container">
-        <input [(ngModel)]="item.description" placeholder="Description" />
-      </div>
-      <div class="col-xs-2 input-container borderleft">
-        <input [(ngModel)]="item.hsnCode" value="1" size="4" required placeholder="HSN Code" />
-      </div>
-      <div class="col-xs-1 input-container borderleft">
-        <input [(ngModel)]="item.qty" value="1" size="4" required placeholder="Quantity" />
-      </div>
-      <div class="col-xs-2 input-container borderleft">
-        <input [(ngModel)]="item.cost" value="0.00" required size="6" placeholder="Cost" />
-      </div>
-      <div class="col-xs-2 text-right input-container borderleft">
-        {{item.cost * item.qty }}
-      </div>
     </div>
-    <div class="row invoice-item">
-      <div class="col-xs-12 add-item-container" [hidden]="printMode">
-        <button class="btn btn-primary" (click)="addItem()">[+]</button>
-      </div>
+    <div class="row infos">
+        <div class="col-xs-7">
+            <div style="font-size:13px"><b>M/s.</b><input style="margin-left: 2%; font-size:13px" type="text"
+                                                          [(ngModel)]="invoice.customer_info.name"/></div>
+            <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text"
+                                               [(ngModel)]="invoice.customer_info.no"/></div>
+            <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text"
+                                               [(ngModel)]="invoice.customer_info.address1"/></div>
+            <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text"
+                                               [(ngModel)]="invoice.customer_info.address2"/></div>
+            <div style="font-size:13px"><b>City :</b><input style="margin-left: 3%; font-size:12px" type="text"
+                                                            [(ngModel)]="invoice.customer_info.city"/></div>
+            <div style="font-size:13px"><b>State :</b><input style="margin-left: 2%; font-size:12px" type="text"
+                                                             [(ngModel)]="invoice.customer_info.state"/></div>
+            <div style="font-size:13px"><b>GSTIN :</b><input style="margin-left: 2%; font-size:12px" type="text"
+                                                             [(ngModel)]="invoice.customer_info.gstin"/></div>
+
+            <div data-[hidden]='printMode'>
+            </div>
+        </div>
+        <div class="col-xs-5 right">
+            <div class="input-container"><b>INVOICE NO:</b><input style="margin-left: 2%;" type="text"
+                                                                  [(ngModel)]="invoice.company_info.invoicNo"/></div>
+            <div class="input-container"><b>DATE:</b><input style="margin-left: 2%;" type="text"
+                                                            [(ngModel)]="invoice.company_info.date"/></div>
+            <div class="input-container"><b>DUE DATE:</b><input style="margin-left: 2%;" type="text"
+                                                                [(ngModel)]="invoice.company_info.dueDate"/></div>
+            <div class="input-container"><b>AGENT:</b><input style="margin-left: 2%;" type="text"
+                                                             [(ngModel)]="invoice.company_info.agent"/></div>
+        </div>
+    </div>
+    <div style="border: 0.5px solid #404040; height:389px">
+        <div class="items-table">
+            <div class="row header">
+                <div class="col-xs-1 ">NO</div>
+                <div class="col-xs-3 ">DESCRIPTION OF ITEMS</div>
+                <div class="col-xs-2 borderleft">HSN CODE</div>
+                <div class="col-xs-1 borderleft">QTY</div>
+                <div class="col-xs-2 borderleft">Without GST RATE</div>
+                <div class="col-xs-2 borderleft text-right">Total Vaule for GST TAX</div>
+            </div>
+            <div class="row invoice-item" *ngFor="let item of invoice.items; let i = index">
+                <div class="col-xs-1 remove-item-container" [style.display]="printMode?'none':'block'">
+                    <button [hidden]="printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
+                </div>
+                <div class="col-xs-1 input-container" [style.display]="printMode?'block':'none'">
+                    <div [hidden]="!printMode">{{item.description!=""?i+1:""}}</div>
+                </div>
+                <div class="col-xs-3 input-container">
+                    <input [(ngModel)]="item.description" placeholder="Description"/>
+                </div>
+                <div class="col-xs-2 input-container borderleft">
+                    <input [(ngModel)]="item.hsnCode" value="1" size="4" required placeholder="HSN"/>
+                </div>
+                <div class="col-xs-1 input-container borderleft">
+                    <input [(ngModel)]="item.qty" value="1" size="4" required placeholder="Qty"/>
+                </div>
+                <div class="col-xs-2 input-container borderleft">
+                    <input [(ngModel)]="item.cost" value="0.00" required size="6" placeholder="Cost"/>
+                </div>
+                <div class="col-xs-2 text-right input-container borderleft">
+                    {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :'' }}
+                </div>
+            </div>
+            <div class="row invoice-item">
+                <div class="col-xs-12 add-item-container" [hidden]="printMode">
+                    <button class="btn btn-primary" (click)="addItem()">[+]</button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-      <div class="col-xs-10 text-right">Sub Total</div>
-      <div class="col-xs-2 text-right">{{invoiceSubTotal() }}</div>
+        <div class="col-xs-12">
+            <div style="float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040">
+                <div class="row">
+                    <div class=" text-right">Sub Total : <input style="width:15px"/></div>
+                    <div class=" text-right">{{invoiceSubTotal() }}</div>
+                </div>
+                <div class="row">
+                    <div class=" text-right">SGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
+                    <div class=" text-right">{{calculateSGST()}}</div>
+                </div>
+                <div class="row">
+                    <div class="text-right">CGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
+                    <div class="text-right">{{calculateCGST()}}</div>
+                </div>
+                <div class="row">
+                    <div class="text-right"><b>Grand Total : </b></div>
+                    <div class="text-right">{{calculateGrandTotal()}}</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-      <div class="col-xs-10 text-right">SGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
-      <div class="col-xs-2 text-right">{{calculateSGST()}}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-10 text-right">CGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
-      <div class="col-xs-2 text-right">{{calculateCGST()}}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-10 text-right"><b>Grand Total:</b></div>
-      <div class="col-xs-2 text-right">{{calculateGrandTotal()}}</div>
-    </div>
-    <div class="row">
-      <div style="margin-left: 16px"><b>IN WORDS :</b></div>
-      <div class="col-sm-11"><i>{{convertIntoWord()}}</i></div>
+        <div style="margin-left: 16px"><b>IN WORDS :</b></div>
+        <div class="col-sm-8"><i>{{convertIntoWord()}}</i></div>
     </div>
 
     <div class="row">
-      <div class="col-xs-6">
-        <div style="margin-left: 16px"><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
-        <div style="margin-left: 16px"><b>BANK ACCOUNT NO :</b> 1006021000612</div>
-      </div>
-      <div class="col-xs-4">
-        <div style="margin-left: 16px"><b>BANK IFSC CODE :</b> YESB0PMCB06</div>
-        <div style="margin-left: 16px"><b>BANKBRANCH :</b> KATARGAM,SURAT</div>
-      </div>
+        <div class="col-xs-7">
+            <div style="margin-left: 16px"><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
+            <div style="margin-left: 16px"><b>BANK ACCOUNT NO :</b> 1006021000612</div>
+        </div>
+        <div class="col-xs-5">
+            <div style="margin-left: 16px"><b>BANK IFSC CODE :</b> YESB0PMCB06</div>
+            <div style="margin-left: 16px"><b>BANKBRANCH :</b> KATARGAM,SURAT</div>
+        </div>
     </div>
 
     <div>
-      <div style="margin-left: 12px; margin-top: 5px;"><b>TERMS :</b></div>
+        <div style="margin-left: 12px; margin-top: 5px;"><b>TERMS :</b></div>
     </div>
 
     <div>
-      <div style="margin-left: 12px; margin-top: 5px;">
-        <ol>
-          <li>Goods once sold will not be back or exchanged.</li>
-          <li>Our risk and responsibility is upto the goods leave our godown.</li>
-          <li>Interest 2.5% Per Month will be charged on amount remaining unpaid from the date of bill</li>
-          <li>Complaint if any regarding this invoice must be setted within 24 hour.</li>
-          <li>Subject to surat Jurisdiction</li>
-        </ol>
-      </div>
+        <div style="margin-left: 12px; margin-top: 5px;">
+            <ol>
+                <li>Goods once sold will not be back or exchanged.</li>
+                <li>Our risk and responsibility is upto the goods leave our godown.</li>
+                <li>Interest 2.5% Per Month will be charged on amount remaining unpaid from the date of bill</li>
+                <li>Complaint if any regarding this invoice must be setted within 24 hour.</li>
+                <li>Subject to surat Jurisdiction</li>
+            </ol>
+        </div>
     </div>
 
     <div style="margin-top: 46px">
-      <div class="col-xs-3">
-        <div style="margin-left: 16px">Prepared By : </div>
-      </div>
-      <div class="col-xs-3">
-        <div style="margin-left: 16px">Checked By:</div>
-      </div>
-      <div class="col-xs-3">
-        <div style="margin-left: 16px">Recived By</div>
-      </div>
-      <div class="col-xs-3">
-        <div style="margin-left: 16px"><b>FOR, SHAKSHI TRADERS</b></div>
-      </div>
+        <div class="col-xs-3">
+            <div style="margin-left: 16px">Prepared By :</div>
+        </div>
+        <div class="col-xs-3">
+            <div style="margin-left: 16px">Checked By:</div>
+        </div>
+        <div class="col-xs-3">
+            <div style="margin-left: 16px">Recived By</div>
+        </div>
+        <div class="col-xs-3">
+            <div style="margin-left: 16px"><b>FOR, SHAKSHI TRADERS</b></div>
+        </div>
     </div>
 
 
-
-  <div class="noPrint actions" style="margin-top: 12px">
-    <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()">Print</a>
-    <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
-    <a href="#" class="btn btn-primary" [hidden]="printMode" (click)="printMode = true;">Turn On Print Mode</a>
-    <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printMode = false;">Turn Off Print Mode</a>
-  </div>
-</div>
+    <div class="noPrint actions" style="margin-top: 12px">
+        <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()">Print</a>
+        <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
+        <a href="#" class="btn btn-primary" [hidden]="printMode" (click)="printMode = true;">Turn On Print Mode</a>
+        <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printMode = false;">Turn Off Print Mode</a>
+    </div>
 </div>
 
 
 <div [hidden]="printMode" class="copy noPrint">
-  <a>Nikita Chevli</a>
+    <a>Nikita Chevli</a>
 </div>

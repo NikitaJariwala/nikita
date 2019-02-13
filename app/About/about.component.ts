@@ -30,20 +30,22 @@ export class AboutComponent implements OnInit {
       date: '08/01/2019',
       dueDate: '08/01/2019',
       agent: '',
-      
+
     },
     items: [
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      { qty: 10, description: 'Gadget', cost: 9.95, hsnCode:9898 },
-      
-    
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+
     ]
   };
-  
+
   constructor(private router: Router) {
     this.mainForm = this.getForm();
     this.invoice = this.invoice
@@ -83,7 +85,7 @@ export class AboutComponent implements OnInit {
   };
 
   addItem() {
-    this.invoice.items.push({ qty: 0, cost: 0, description: "" ,hsnCode:0});
+    this.invoice.items.push({ qty: '', cost: '', description: "" ,hsnCode:''});
   }
 
   removeItem(item: any) {
@@ -93,7 +95,7 @@ export class AboutComponent implements OnInit {
   invoiceSubTotal() {
     var total = 0.00;
     this.invoice.items.forEach((item:any, key:any)=>{
-      total += (item.qty * item.cost);
+      total += (+(item.qty) * +(item.cost));
     });
     return total;
   };
@@ -110,7 +112,7 @@ export class AboutComponent implements OnInit {
     this.saveInvoice();
     return this.calculateSGST() +this.calculateCGST ()+ this.invoiceSubTotal();
   };
-  
+
   getFormGroupForLine(orderLine: any): FormGroup {
     return new FormGroup({
       price: new FormControl(orderLine.price)
@@ -231,7 +233,7 @@ export class AboutComponent implements OnInit {
     }
   };
 
- 
+
 
 //in service file
   setInvoice (invoice:any) {
@@ -242,7 +244,7 @@ export class AboutComponent implements OnInit {
     this.logoRemoved = !this.logoRemoved;
     this.clearLogo();
   };
-  
+
   // Triggers the logo chooser click event
   editLogo () {
     // angular.element('#imgInp').trigger('click');
