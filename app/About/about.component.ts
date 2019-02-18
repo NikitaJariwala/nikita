@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
+declare let jsPDF;
+ import * as html2canvas from 'html2canvas';
 
 @Component({
-  selector: 'app-home',
   templateUrl: 'app/About/about.component.html',
   styleUrls: ['app/About/about.component.css']
 
@@ -41,7 +42,7 @@ export class AboutComponent implements OnInit {
         { qty: '', description: '', cost: '', hsnCode:'' },
         { qty: '', description: '', cost: '', hsnCode:'' },
         { qty: '', description: '', cost: '', hsnCode:'' },
-        { qty: '', description: '', cost: '', hsnCode:'' },
+       
 
     ]
   };
@@ -67,7 +68,21 @@ export class AboutComponent implements OnInit {
     })
   }
   printInfo () {
-    window.print();
+    var data = document.getElementById('invoice');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 208;   
+      var pageHeight = 295;    
+      var imgHeight = canvas.height * imgWidth / canvas.width;  
+      var heightLeft = imgHeight;  
+  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('MYPdf.pdf'); // Generated PDF   
+    });  
+   
   };
   readUrl (event:any) {
     if (event.target.files && event.target.files[0]) {

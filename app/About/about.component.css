@@ -109,6 +109,13 @@ input:focus {
     ::-webkit-input-placeholder { /* WebKit browsers */
         color: transparent;
     }
+    body, html, #wrapper {
+      width: 100%;
+  }
+    .bold-text{
+      font-family: sans-serif;
+      font-family: 'Times New Roman', Times, serif
+    }
 
     :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
         color: transparent;
@@ -141,10 +148,16 @@ input:focus {
         font-size: 12px;
     }
 
+    .header.row {
+      font-weight: 600;
+      border-bottom: 1px solid #ddd;
+      border-top: 1px solid #ddd;
+  }
+
 }
 
 .header.row {
-    font-weight: bold;
+    font-weight: 600;
     border-bottom: 1px solid #ddd;
     border-top: 1px solid #ddd;
 }
@@ -165,6 +178,7 @@ input, textarea {
     border: 1px solid #F9F9F9;
 }
 
+
 @media print {
     .noPrint {
         display: none;
@@ -173,6 +187,7 @@ input, textarea {
 
 body {
     padding: 20px;
+    font-family: unset !important
 }
 
 .align-right input {

@@ -25,6 +25,8 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
       // other libraries
+      'html2canvas':                'npm:html2canvas',
+      'jspdf':                      'npm:jspdf',
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
     },
@@ -35,6 +37,14 @@
         defaultExtension: 'js'
       },
       rxjs: {
+        defaultExtension: 'js'
+      },
+      jspdf: {
+        main: './dist/jspdf.debug.js',
+        defaultExtension: 'js'
+      },
+      html2canvas: {
+        main: './dist/html2canvas.min.js',
         defaultExtension: 'js'
       }
     }
