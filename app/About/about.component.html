@@ -4,57 +4,56 @@
     </div>
     <div class="col-xs-12 heading">
 
-        <h1>
+        <h1 style="font-size:45px">
             <img [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" width="50"/>
             <b>Shakshi Traders</b>
         </h1>
     </div>
     <div class="col-xs-12 heading" style="font-weight:600; ">
-        <h5>Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
+        <h5 style="font-size:20px">Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
     </div>
     <div class="col-xs-12 heading1" style="font-weight:600; ">
-        <h5>91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
+        <h5 style="font-size:20px">91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
     </div>
     <div class="col-xs-12 heading1" style="font-weight:600; ">
-        <h5>GSTIN NO : 24ATCPJ7889F1ZE</h5>
+        <h5 style="font-size:20px">GSTIN NO : 24ATCPJ7889F1ZE</h5>
     </div>
 
-    <div class="row branding">
-        <div class="col-sm-8">
+    <div>
+        <!-- <div class="col-sm-8"> -->
             <div class="invoice-number-container">
-
                 <h4>TAX INVOICE</h4>
             </div>
-        </div>
-        <div class="col-sm-4 logo-container">
-            <input type="file" id="imgInp" (change)="readUrl($event)"/>
+        <!-- </div> -->
+        <!-- <div class="col-sm-4 logo-container"> -->
+            <!-- <input type="file" id="imgInp" (change)="readUrl($event)"/>
             <div>
                 <div class="noPrint" [hidden]="printMode">
                     <button (click)="editLogo()">Edit Logo</button>
                     <a (click)="toggleLogo()" id="remove_logo">{{ logoRemoved ? 'Show' : 'Hide' }} logo</a>
                 </div>
-            </div>
+            </div> -->
             <!--<div class="row borderbottom1px">Original for Recipient</div>-->
             <!--<div class="row borderbottom1px">Duplicate for Supplier/ Transporter</div>-->
             <!--<div class="row borderbottom1px">Triplicate for Supplier</div>-->
 
-        </div>
+        <!-- </div> -->
     </div>
     <div class="row infos">
         <div class="col-xs-7">
-            <div style="font-size:13px; font-weight:600; ">M/s.<input style="margin-left: 2%; font-size:13px" type="text"
+            <div style="font-size:18px; font-weight:600; ">M/s.<input style="margin-left: 2%; font-size:18px" type="text"
                                                           [(ngModel)]="invoice.customer_info.name"/></div>
-            <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text"
+            <div style="font-size:18px"><input style="margin-left: 5%; font-size:18px" type="text"
                                                [(ngModel)]="invoice.customer_info.no"/></div>
-            <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text"
+            <div style="font-size:18px"><input style="margin-left: 5%; font-size:18px" type="text"
                                                [(ngModel)]="invoice.customer_info.address1"/></div>
-            <div style="font-size:13px"><input style="margin-left: 7%; font-size:13px" type="text"
+            <div style="font-size:18px"><input style="margin-left: 5%; font-size:18px" type="text"
                                                [(ngModel)]="invoice.customer_info.address2"/></div>
-            <div style="font-size:13px; font-weight:600; ">City :<input style="margin-left: 3%; font-size:12px" type="text"
+            <div style="font-size:18px; font-weight:600; ">City :<input style="margin-left: 3%; font-size:17px" type="text"
                                                             [(ngModel)]="invoice.customer_info.city"/></div>
-            <div style="font-size:13px; font-weight:600; ">State :<input style="margin-left: 2%; font-size:12px" type="text"
+            <div style="font-size:18px; font-weight:600; ">State :<input style="margin-left: 2%; font-size:17px; width:79%;" type="text"
                                                              [(ngModel)]="invoice.customer_info.state"/></div>
-            <div style="font-size:13px; font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:12px" type="text"
+            <div style="font-size:18px; font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:17px; width:79%;" type="text"
                                                              [(ngModel)]="invoice.customer_info.gstin"/></div>
 
             <div data-[hidden]='printMode'>
@@ -89,16 +88,16 @@
                     <div [hidden]="!printMode">{{item.description!=""?i+1:""}}</div>
                 </div>
                 <div class="col-xs-6 input-container  borderleft">
-                    <input [(ngModel)]="item.description" placeholder="Description" style="width:100%;"/>
+                    <input [(ngModel)]="item.description" style="width:100%;"/>
                 </div>
                 <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.hsnCode" value="1" size="4" required placeholder="HSN"/>
+                    <input [(ngModel)]="item.hsnCode" value="1" size="4" required/>
                 </div>
                 <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.qty" value="1" size="4" required placeholder="Qty"/>
+                    <input [(ngModel)]="item.qty" value="1" size="4" required />
                 </div>
                 <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.cost" value="0.00" required size="6" placeholder="Cost"/>
+                    <input [(ngModel)]="item.cost" value="0.00" required size="6"/>
                 </div>
                 <div class="col-xs-2 text-right input-container borderleft">
                     {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :'' }}
