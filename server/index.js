@@ -15,10 +15,10 @@ app.options('*', cors());
 app.use(cors());
 global.__basedir = __dirname;
 
-let uploadDirectory = path.join(__dirname, 'assets/images/');
-fs.existsSync(uploadDirectory) || fs.mkdirSync(uploadDirectory);
+// let uploadDirectory = path.join(__dirname, 'assets/images/');
+// fs.existsSync(uploadDirectory) || fs.mkdirSync(uploadDirectory);
 
-app.use(express.static(uploadDirectory));
+// app.use(express.static(uploadDirectory));
 
 
 app.use(bodyParser.json());

@@ -1,4 +1,4 @@
-<div class="container" id="invoice">
+<div class="container" id="invoice" style="max-width: 1280px; ">
     <div class="col-xs-12" style="text-align:center">
         || Shree Ram ||
     </div>
@@ -9,14 +9,14 @@
             <b>Shakshi Traders</b>
         </h1>
     </div>
-    <div class="col-xs-12 heading" style="font-weight:600; ">
-        <h5 style="font-size:20px">Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
+    <div class="col-xs-12 heading" >
+        <h5 style="font-size:20px; font-weight:600;">Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
     </div>
-    <div class="col-xs-12 heading1" style="font-weight:600; ">
-        <h5 style="font-size:20px">91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
+    <div class="col-xs-12 heading1" >
+        <h5 style="font-size:20px;font-weight:600;">91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
     </div>
-    <div class="col-xs-12 heading1" style="font-weight:600; ">
-        <h5 style="font-size:20px">GSTIN NO : 24ATCPJ7889F1ZE</h5>
+    <div class="col-xs-12 heading1" >
+        <h5 style="font-size:20px; font-weight:600;">GSTIN NO : 24ATCPJ7889F1ZE</h5>
     </div>
 
     <div>
@@ -41,19 +41,20 @@
     </div>
     <div class="row infos">
         <div class="col-xs-7">
-            <div style="font-size:18px; font-weight:600; ">M/s.<input style="margin-left: 2%; font-size:18px" type="text"
+                <div [hidden]="printMode"> <select required [(ngModel)]="invoice.customer_info.name1" (change)="onSelectChange($event.target.value)"> <!-- <== changed -->
+                    <option selected="selected" disabled>customer...</option>
+                    <option *ngFor="let customer of customers" value= {{customer.NO}}>{{ customer.Party }}</option>
+                  </select></div>
+            <div >M/s.<input style="margin-left: 2%; font-weight:700;" type="text"
                                                           [(ngModel)]="invoice.customer_info.name"/></div>
-            <div style="font-size:18px"><input style="margin-left: 5%; font-size:18px" type="text"
-                                               [(ngModel)]="invoice.customer_info.no"/></div>
-            <div style="font-size:18px"><input style="margin-left: 5%; font-size:18px" type="text"
+        
+            <div ><input style="margin-left: 5%; font-weight:600; width: 100%;" type="text"
                                                [(ngModel)]="invoice.customer_info.address1"/></div>
-            <div style="font-size:18px"><input style="margin-left: 5%; font-size:18px" type="text"
-                                               [(ngModel)]="invoice.customer_info.address2"/></div>
-            <div style="font-size:18px; font-weight:600; ">City :<input style="margin-left: 3%; font-size:17px" type="text"
+            <div style=" font-weight:600; ">City :<input style="margin-left: 3%; font-size:17px; font-weight:700;" type="text"
                                                             [(ngModel)]="invoice.customer_info.city"/></div>
-            <div style="font-size:18px; font-weight:600; ">State :<input style="margin-left: 2%; font-size:17px; width:79%;" type="text"
+            <div style=" font-weight:600; ">State :<input style="margin-left: 2%; font-size:17px; width:79%; font-weight:700;" type="text"
                                                              [(ngModel)]="invoice.customer_info.state"/></div>
-            <div style="font-size:18px; font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:17px; width:79%;" type="text"
+            <div style=" font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:17px; width:79%; font-weight:700;" type="text"
                                                              [(ngModel)]="invoice.customer_info.gstin"/></div>
 
             <div data-[hidden]='printMode'>
@@ -64,23 +65,21 @@
                                                                   [(ngModel)]="invoice.company_info.invoicNo"/></div>
             <div class="input-container" style="font-weight:600; ">DATE:<input style="margin-left: 2%;" type="text"
                                                             [(ngModel)]="invoice.company_info.date"/></div>
-            <div class="input-container" style="font-weight:600; ">DUE DATE:<input style="margin-left: 2%;" type="text"
-                                                                [(ngModel)]="invoice.company_info.dueDate"/></div>
-            <div class="input-container" style="font-weight:600; ">AGENT:<input style="margin-left: 2%;" type="text"
+
+            <div class="input-container" style="font-weight:600; ">HNS CODE:<input style="margin-left: 2%;" type="text"
                                                              [(ngModel)]="invoice.company_info.agent"/></div>
         </div>
     </div>
-    <div style="border-bottom: 0.5px solid #404040;">
+    <div>
         <div class="items-table">
-            <div class="row header">
+            <div class="row header" style="font-size:21px">
                 <div class="col-xs-1 ">NO</div>
                 <div class="col-xs-6 borderleft">DESCRIPTION OF ITEMS</div>
-                <div class="col-xs-1 borderleft">HSN CODE</div>
                 <div class="col-xs-1 borderleft">QTY</div>
-                <div class="col-xs-1 borderleft">Without GST RATE</div>
-                <div class="col-xs-2 borderleft text-right">Total Vaule for GST TAX</div>
+                <div class="col-xs-2 borderleft">RATE</div>
+                <div class="col-xs-2 borderleft text-right">AMOUNT</div>
             </div>
-            <div class="row invoice-item" *ngFor="let item of invoice.items; let i = index">
+            <div class="row invoice-item"  *ngFor="let item of invoice.items; let i = index">
                 <div class="col-xs-1 remove-item-container" [style.display]="printMode?'none':'block'">
                     <button [hidden]="printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
                 </div>
@@ -88,18 +87,16 @@
                     <div [hidden]="!printMode">{{item.description!=""?i+1:""}}</div>
                 </div>
                 <div class="col-xs-6 input-container  borderleft">
-                    <input [(ngModel)]="item.description" style="width:100%;"/>
+                    <input [(ngModel)]="item.description" style="width:100%; font-size:23px"/>
                 </div>
+               
                 <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.hsnCode" value="1" size="4" required/>
+                    <input [(ngModel)]="item.qty" style="font-size:23px" value="1" size="4" required />
                 </div>
-                <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.qty" value="1" size="4" required />
+                <div class="col-xs-2 input-container borderleft">
+                    <input [(ngModel)]="item.cost" style="font-size:23px; width:100%" value="0.00" required size="6"/>
                 </div>
-                <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.cost" value="0.00" required size="6"/>
-                </div>
-                <div class="col-xs-2 text-right input-container borderleft">
+                <div class="col-xs-2 text-right input-container borderleft" style="font-size:21px">
                     {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :'' }}
                 </div>
             </div>
@@ -110,9 +107,9 @@
             </div> -->
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="border-bottom: 0.5px solid #404040; border-top: 0.5px solid #404040">
         <div class="col-xs-12">
-            <div style="float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040">
+            <div style="float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">
                 <div class="row">
                     <div class=" text-right">Sub Total : <input style="width:15px"/></div>
                     <div class=" text-right">{{invoiceSubTotal() }}</div>
@@ -126,37 +123,40 @@
                     <div class="text-right">{{calculateCGST()}}</div>
                 </div>
                 <div class="row">
+                    <div class="text-right">IGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
+                    <div class="text-right">{{calculateIGST()}}</div>
+                </div>
+                <div class="row">
                     <div class="text-right" style="font-weight:600; ">Grand Total : </div>
                     <div class="text-right">{{calculateGrandTotal()}}</div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div style="margin-left: 16px" style="font-weight:600; ">IN WORDS : </div>
+    <div class="row" style=" border-bottom: 0.5px solid #404040">
+        <div style="margin-left: 16px; font-weight:600; line-height:55px;">IN WORDS : </div>
         <div class="col-sm-8"><i>{{convertIntoWord()}}</i></div>
     </div>
-
-    <div class="row">
+ 
+    <div class="row"  style=" border-bottom: 0.5px solid #404040; padding-bottom: 18px; font-size: 17px; padding-top: 18px;">
         <div class="col-xs-7">
-            <div style="margin-left: 16px; font-weight:600; "><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
-            <div style="margin-left: 16px"><b>BANK ACCOUNT NO :</b> 1006021000612</div>
+            <div style=" font-weight:500;"><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
+            <div style=" font-weight:500;"><b>BANK ACCOUNT NO :</b> 1006021000612</div>
         </div>
         <div class="col-xs-5">
-            <div style="margin-left: 16px"><b>BANK IFSC CODE :</b> YESB0PMCB06</div>
-            <div style="margin-left: 16px"><b>BANKBRANCH :</b> KATARGAM,SURAT</div>
+            <div style="font-weight:500;"><b>BANK IFSC CODE :</b> YESB0PMCB06</div>
+            <div style="font-weight:500;"><b>BANKBRANCH :</b> KATARGAM,SURAT</div>
         </div>
     </div>
 
     <div>
-        <div style="margin-left: 12px; margin-top: 5px; font-weight:600; ">TERMS :</div>
+        <div style="margin-left: 12px; margin-top: 5px; font-weight:700; ">TERMS :</div>
     </div>
 
     <div>
-        <div style="margin-left: 12px; margin-top: 5px;">
+        <div style="margin-left: 12px; margin-top: 5px; font-weight:500;">
             <ol>
                 <li>Goods once sold will not be back or exchanged.</li>
-                <li>Our risk and responsibility is upto the goods leave our godown.</li>
                 <li>Interest 2.5% Per Month will be charged on amount remaining unpaid from the date of bill</li>
                 <li>Complaint if any regarding this invoice must be setted within 24 hour.</li>
                 <li>Subject to surat Jurisdiction</li>
@@ -165,29 +165,28 @@
     </div>
 
     <div style="margin-top: 46px">
-        <div class="col-xs-3">
-            <div style="margin-left: 16px">Prepared By :</div>
+        <!-- <div class="col-xs-3">
+            <div style="margin-left: 16px; font-weight:700;">Prepared By :</div>
         </div>
         <div class="col-xs-3">
-            <div style="margin-left: 16px">Checked By:</div>
+            <div style="margin-left: 16px; font-weight:700;">Checked By:</div>
+        </div> -->
+        <div class="col-xs-6">
+            <div style="margin-left: 16px; font-weight:700;">Recived By</div>
         </div>
-        <div class="col-xs-3">
-            <div style="margin-left: 16px">Recived By</div>
-        </div>
-        <div class="col-xs-3">
-            <div style="margin-left: 16px; font-weight:600; ">FOR, SHAKSHI TRADERS</div>
+        <div class="col-xs-6">
+            <div style="margin-left: 16px; font-weight:700; ">FOR, SHAKSHI TRADERS</div>
         </div>
     </div>
 
     <div class="noPrint actions" style="margin-top: 12px">
-        <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()">Print</a>
+        <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()" >Print</a>
         <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
         <a href="#" class="btn btn-primary" [hidden]="printMode" (click)="printMode = true;">Turn On Print Mode</a>
         <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printMode = false;">Turn Off Print Mode</a>
     </div>
 </div>
 
-
-<div [hidden]="printMode" class="copy noPrint">
+<!-- <div [hidden]="printMode" class="copy noPrint">
     <a>Nikita Chevli</a>
-</div>
+</div> -->

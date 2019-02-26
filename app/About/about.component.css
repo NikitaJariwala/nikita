@@ -107,13 +107,24 @@ input:focus {
     padding-left: 15px;
     font-size: 12px;
 }
+
+.widthtotal {
+    max-width: 1262px !important;
+    border: 1px solid #555;
+    margin: 43px;
+    padding: 16px;
+}
 @media print {
+     .widthtotal {
+        max-width: 1262px !important;
+        border: 1px solid #555;
+        margin: 43px;
+        padding: 16px;
+    }
     ::-webkit-input-placeholder { /* WebKit browsers */
         color: transparent;
     }
-    body, html, #wrapper {
-      width: 100%;
-  }
+   
     .bold-text{
       font-family: sans-serif;
       font-family: 'Times New Roman', Times, serif
@@ -153,12 +164,15 @@ input:focus {
     .header.row {
         font-size: 17px;
       font-weight: 700;
-      border-bottom: 1px solid #ddd;
-      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #404040;
+      border-top: 1px solid #404040;
   }
   .invoice-item.row{
     font-size: 17px;
    }
+   .noPrint {
+    display: none;
+}
 
 }
 
@@ -166,8 +180,8 @@ input:focus {
 .header.row {
     font-size: 17px;
     font-weight: 700;
-    border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #404040;
+    border-top: 1px solid #404040;
 }
 
 input, textarea {
@@ -187,11 +201,7 @@ input, textarea {
 }
 
 
-@media print {
-    .noPrint {
-        display: none;
-    }
-}
+
 
 body {
     padding: 20px;

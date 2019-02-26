@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
-declare let jsPDF;
- import * as html2canvas from 'html2canvas';
+import { APIService } from '../app.service';
+
 
 @Component({
   templateUrl: 'app/About/about.component.html',
@@ -13,6 +13,7 @@ export class AboutComponent implements OnInit {
   person: string
   printMode   = false
   logoRemoved = false;
+  customers =[];
   logo='app/assets/logo.jpg'
   invoice: any = {
     tax: 13.00,
@@ -42,12 +43,14 @@ export class AboutComponent implements OnInit {
         { qty: '', description: '', cost: '', hsnCode:'' },
         { qty: '', description: '', cost: '', hsnCode:'' },
         { qty: '', description: '', cost: '', hsnCode:'' },
-       
+        { qty: '', description: '', cost: '', hsnCode:'' },
+        { qty: '', description: '', cost: '', hsnCode:'' },
+
 
     ]
   };
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private apiService: APIService) {
     this.mainForm = this.getForm();
     this.invoice = this.invoice
     this.person = "nikiiiii"
@@ -68,21 +71,44 @@ export class AboutComponent implements OnInit {
     })
   }
   printInfo () {
-    var data = document.getElementById('invoice');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 208;   
-      var pageHeight = 295;    
-      var imgHeight = canvas.height * imgWidth / canvas.width;  
-      var heightLeft = imgHeight;  
+    // var data = document.getElementById('invoice'); 
+    // var HTML_Width = document.getElementById('invoice').clientWidth;
+    // var HTML_Height = document.getElementById('invoice').clientHeight
+    // var top_left_margin = 15;
+    // var ratio = HTML_Height / HTML_Width;
+    // var PDF_Width = HTML_Width+(top_left_margin*2);
+    // var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    // var canvas_image_width = HTML_Width;
+    // var canvas_image_height = HTML_Height;
+
+    // var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1; 
+    // html2canvas(data).then(canvas => { 
+     
+    //   canvas.getContext('2d');
+ 
+    //   console.log(canvas.height+"  "+canvas.width);
+    //   // Few necessary setting options  
+    //   var imgWidth = 208;   
+    //   var pageHeight = 295;    
+    //   var imgHeight = canvas.height * imgWidth / canvas.width; 
+ 
+    //   var heightLeft = imgHeight;  
   
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('MYPdf.pdf'); // Generated PDF   
-    });  
-   
+    //   const contentDataURL = canvas.toDataURL('image/png');
+      
+    //    let pdf = new jsPDF('p','mm', 'A4'); // A4 size page of PDF  
+      
+    //   var position = 0;  
+    //   var width = pdf.internal.pageSize.width;    
+    //   var height = pdf.internal.pageSize.height;
+    //   height = ratio * width;
+    //   pdf.addImage(contentDataURL, 'PNG', 0,0 )
+    //   pdf.setFontType("bold");
+  
+    //   pdf.save('MYPdf.pdf'); // Generated PDF   
+    // }); 
+    
+   window.print()
   };
   readUrl (event:any) {
     if (event.target.files && event.target.files[0]) {
@@ -119,6 +145,10 @@ export class AboutComponent implements OnInit {
   };
 
   calculateCGST () {
+    return ((this.invoice.tax * this.invoiceSubTotal())/100);
+  };
+
+  calculateIGST () {
     return ((this.invoice.tax * this.invoiceSubTotal())/100);
   };
 
@@ -272,8 +302,30 @@ export class AboutComponent implements OnInit {
   submitForm() {
 
   }
+
+  onSelectChange(customerNo) {
+    let info=this.customers[customerNo -1]
+    this.invoice.customer_info= {
+      name: info.Party,
+      no: '91',
+      address1: info.Address,
+    
+      city: info.City,
+      state: info.State,
+      gstin: info.GSTNo
+    },
+      console.log("customer=====",customerNo)
+  }
   ngOnInit() {
     this.person = "nikitaaaaa";
+
+    this.apiService
+            .getCustomer()
+            .subscribe(data  => {
+            console.log("res=======",data );
+              // this.getProducts();
+              this.customers = data['data'];
+            });
   }
   onButtonClick() {
     debugger;
