@@ -1,20 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { FormGroup, FormControl, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { APIService } from '../app.service';
-
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
+//import { APIService } from '../app.service';
+//import { TheDb } from '../model/thedb';
+import {Customer} from "../model/customer";
+//const { remote } = require('electron')
 
 @Component({
-  templateUrl: 'app/About/about.component.html',
-  styleUrls: ['app/About/about.component.css']
+    selector: 'app-about',
+    templateUrl: './about.component.html',
+  styleUrls: ['./about.component.css']
 
 })
 export class AboutComponent implements OnInit {
-  person: string
+    public customers: Customer[];
+
+    person: string
   printMode   = false
   logoRemoved = false;
-  customers =[];
-  logo='app/assets/logo.jpg'
+  logo='/assets/logo.jpg'
   invoice: any = {
     tax: 13.00,
     invoice_number: 10,
@@ -50,7 +54,7 @@ export class AboutComponent implements OnInit {
     ]
   };
 
-  constructor(private router: Router, private apiService: APIService) {
+  constructor(private router: Router) {
     this.mainForm = this.getForm();
     this.invoice = this.invoice
     this.person = "nikiiiii"
@@ -71,7 +75,7 @@ export class AboutComponent implements OnInit {
     })
   }
   printInfo () {
-    // var data = document.getElementById('invoice'); 
+    // var data = document.getElementById('invoice');
     // var HTML_Width = document.getElementById('invoice').clientWidth;
     // var HTML_Height = document.getElementById('invoice').clientHeight
     // var top_left_margin = 15;
@@ -81,33 +85,33 @@ export class AboutComponent implements OnInit {
     // var canvas_image_width = HTML_Width;
     // var canvas_image_height = HTML_Height;
 
-    // var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1; 
-    // html2canvas(data).then(canvas => { 
-     
+    // var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    // html2canvas(data).then(canvas => {
+
     //   canvas.getContext('2d');
- 
+
     //   console.log(canvas.height+"  "+canvas.width);
-    //   // Few necessary setting options  
-    //   var imgWidth = 208;   
-    //   var pageHeight = 295;    
-    //   var imgHeight = canvas.height * imgWidth / canvas.width; 
- 
-    //   var heightLeft = imgHeight;  
-  
+    //   // Few necessary setting options
+    //   var imgWidth = 208;
+    //   var pageHeight = 295;
+    //   var imgHeight = canvas.height * imgWidth / canvas.width;
+
+    //   var heightLeft = imgHeight;
+
     //   const contentDataURL = canvas.toDataURL('image/png');
-      
-    //    let pdf = new jsPDF('p','mm', 'A4'); // A4 size page of PDF  
-      
-    //   var position = 0;  
-    //   var width = pdf.internal.pageSize.width;    
+
+    //    let pdf = new jsPDF('p','mm', 'A4'); // A4 size page of PDF
+
+    //   var position = 0;
+    //   var width = pdf.internal.pageSize.width;
     //   var height = pdf.internal.pageSize.height;
     //   height = ratio * width;
     //   pdf.addImage(contentDataURL, 'PNG', 0,0 )
     //   pdf.setFontType("bold");
-  
-    //   pdf.save('MYPdf.pdf'); // Generated PDF   
-    // }); 
-    
+
+    //   pdf.save('MYPdf.pdf'); // Generated PDF
+    // });
+
    window.print()
   };
   readUrl (event:any) {
@@ -135,7 +139,7 @@ export class AboutComponent implements OnInit {
 
   invoiceSubTotal() {
     var total = 0.00;
-    this.invoice.items.forEach((item:any, key:any)=>{
+    this.invoice.items.forEach((item:any)=>{
       total += (+(item.qty) * +(item.cost));
     });
     return total;
@@ -155,7 +159,7 @@ export class AboutComponent implements OnInit {
   // Calculates the grand total of the invoice
   calculateGrandTotal () {
     this.saveInvoice();
-    return this.calculateSGST() +this.calculateCGST ()+ this.invoiceSubTotal();
+    return Math.round(this.calculateSGST() +this.calculateCGST ()+ this.invoiceSubTotal());
   };
 
   getFormGroupForLine(orderLine: any): FormGroup {
@@ -285,16 +289,13 @@ export class AboutComponent implements OnInit {
     localStorage['invoice'] = JSON.stringify(invoice);
   };
 
-  toggleLogo(element:any) {
+  toggleLogo() {
     this.logoRemoved = !this.logoRemoved;
     this.clearLogo();
   };
 
   // Triggers the logo chooser click event
-  editLogo () {
-    // angular.element('#imgInp').trigger('click');
-    document.getElementById('imgInp').click();
-  };
+
   saveInvoice () {
     this.setInvoice(this.invoice);
   };
@@ -303,32 +304,36 @@ export class AboutComponent implements OnInit {
 
   }
 
-  onSelectChange(customerNo) {
-    let info=this.customers[customerNo -1]
-    this.invoice.customer_info= {
-      name: info.Party,
+  onSelectChange(customerNo:any) {
+    let info=  Customer.get(customerNo)
+        .then((customer) => {
+            return customer
+        });
+      console.log("customer=====",info)
+
+      this.invoice.customer_info= {
+      name: info['Party'],
       no: '91',
-      address1: info.Address,
-    
-      city: info.City,
-      state: info.State,
-      gstin: info.GSTNo
-    },
-      console.log("customer=====",customerNo)
+      address1: info['Address'],
+        city: info['City'],
+      state: info['State'],
+      gstin: info['GSTNo']
+    }
   }
   ngOnInit() {
-    this.person = "nikitaaaaa";
-
-    this.apiService
-            .getCustomer()
-            .subscribe(data  => {
-            console.log("res=======",data );
-              // this.getProducts();
-              this.customers = data['data'];
-            });
+      Customer.getAll()
+          .then((customer) => {
+              this.customers = customer;
+          });
+    // this.apiService
+    //         .getCustomer()
+    //         .subscribe(data  => {
+    //           // this.getProducts();
+    //           this.customers = data['data'];
+    //         });
   }
+
   onButtonClick() {
-    debugger;
     console.log("bnutton click");
     this.router.navigate(['home']);
   }

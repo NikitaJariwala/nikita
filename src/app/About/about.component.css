@@ -124,7 +124,7 @@ input:focus {
     ::-webkit-input-placeholder { /* WebKit browsers */
         color: transparent;
     }
-   
+
     .bold-text{
       font-family: sans-serif;
       font-family: 'Times New Roman', Times, serif

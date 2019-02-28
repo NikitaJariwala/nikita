@@ -13,13 +13,13 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     title: 'ng2-electron',
-    icon: `${__dirname}/app/assets/angular-logo.png`,
+    icon: `${__dirname}/assets/angular-logo.png`,
     width: 800,
     height: 600
   })
 
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+    mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
 
   // show app on tray menu
   tray.create(mainWindow);

@@ -3,46 +3,67 @@
  * Adjust as necessary for your application needs.
  */
 (function (global) {
-  System.config({
-    paths: {
-      // paths serve as alias
-      'npm:': 'node_modules/'
-    },
-    // map tells the System loader where to look for things
-    map: {
-      // our app is within the app folder
-      app: 'app',
-      // angular bundles
-      '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
-      '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
-      '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
-      '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
-      '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
-      '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-      '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
-      '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
-      '@angular/router/upgrade': 'npm:@angular/router/bundles/router-upgrade.umd.js',
-      '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-      '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
-      '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
-      'tslib': 'npm:tslib/tslib.js',
-      // other libraries
-      'html2canvas':                'npm:html2canvas',
-      'jspdf':                      'npm:jspdf',
-      'ngx-print':                      'npm:ngx-print',
+    System.config({
+        paths: {
+            // paths serve as alias
+            'npm:': 'node_modules/'
+        },
+        // map tells the System loader where to look for things
+        map: {
+            // our app is within the app folder
+            app: 'app',
+            // angular bundles
+            '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+            '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+            '@angular/common/http': 'npm:@angular/common/bundles/common-http.umd.js',
+            '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+            '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+            '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+            '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
+            '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
+            '@angular/router/upgrade': 'npm:@angular/router/bundles/router-upgrade.umd.js',
+            '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
+            '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
+            '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
+            'fs' : '@node/fs',
+            'electron': 'npm:electron',
+             'path': '@node/path',
+            'events':'@node/events',
+            'util':'@node/util',
+            'nopt':'@node/nopt',
 
-      'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
-    },
-    // packages tells the System loader how to load when no filename and/or no extension
-    packages: {
-      app: {
-        main: './main.js',
-        defaultExtension: 'js'
-      },
-      rxjs: {
-        defaultExtension: 'js'
-      },    
-    }
-  });
+            'npmlog' : '@node/npmlog',
+            'mkdirp': '@node/mkdirp',
+            'tslib': 'npm:tslib/tslib.js',
+            // other libraries
+            'rxjs': 'npm:rxjs',
+            'sqlite3': 'npm:sqlite3',
+            'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+        },
+        // packages tells the System loader how to load when no filename and/or no extension
+        packages: {
+            app: {
+                main: './main.js',
+                defaultExtension: 'js'
+            },
+            rxjs: {
+                defaultExtension: 'js'
+            },
+            sqlite3: {
+                main: './sqlite3.js',
+                defaultExtension: 'js',
+                map: {
+                    'node-pre-gyp' : './node_modules/node-pre-gyp/lib/node-pre-gyp.js'
+                }
+            },
+            electron: {
+                main: './index.js',
+                defaultExtension: 'js'
+            },
+            // 'node-pre-gyp': {
+            //     main: './bin/node-pre-gyp',
+            //     defaultExtension: 'js'
+            // }
+        }
+    });
 })(this);

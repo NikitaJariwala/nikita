@@ -11,17 +11,17 @@ import { CommonModule } from '@angular/common';
 import { APIService } from './app.service';
 
 const appRoutes: Routes = [
-    { path: 'home', component: HomeComponent },
-    { path: '', component: AboutComponent }
+    { path: '', component: HomeComponent },
+    { path: 'home', component: AboutComponent }
 ];
 
 @NgModule({
   imports:      [ BrowserModule,FormsModule,ReactiveFormsModule ,CommonModule,HttpClientModule,RouterModule.forRoot(appRoutes, { useHash: true }) ],
   declarations: [ AppComponent,HomeComponent,AboutComponent ],
   providers: [
-    APIService 
+    APIService
   ],
-  
   bootstrap:    [ AppComponent ]
 })
+
 export class AppModule { }
