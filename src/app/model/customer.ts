@@ -7,8 +7,12 @@ import { TheDb } from './thedb';
  * @class Customer
  */
 export class Customer {
-    public id = -1;
-    public name = '';
+    public NO = -1;
+    public Party = '';
+    public Address = '';
+    public GSTNo = '';
+    public City = '';
+    public State = '';
 
     public static get(id: number): Promise<Customer> {
         const sql = 'SELECT * FROM customer WHERE NO = $NO';
@@ -62,23 +66,23 @@ export class Customer {
             });
     }
 
-    public update(): Promise<void> {
-        const sql = `
-            UPDATE customer
-               SET name = $name
-             WHERE id = $id`;
-
-        const values = {
-            $name: this.name,
-        };
-
-        return TheDb.update(sql, values)
-            .then((result) => {
-                if (result.changes !== 1) {
-                    throw new Error(`Expected 1 Customer to be updated. Was ${result.changes}`);
-                }
-            });
-    }
+    // public update(name: string): Promise<void> {
+    //     const sql = `
+    //         UPDATE customer
+    //            SET name = $name
+    //          WHERE id = $id`;
+    //
+    //     const values = {
+    //         $Party: name,
+    //     };
+    //
+    //     return TheDb.update(sql, values)
+    //         .then((result) => {
+    //             if (result.changes !== 1) {
+    //                 throw new Error(`Expected 1 Customer to be updated. Was ${result.changes}`);
+    //             }
+    //         });
+    // }
 
     public delete( NO : number): Promise<void> {
         const sql = `
@@ -97,8 +101,12 @@ export class Customer {
     }
 
     public fromRow(row: Object): Customer {
-        this.id = row['id'];
-        this.name = row['name'];
+        this.State = row['State'];
+        this.City = row['City'];
+        this.NO = row['NO'];
+        this.Party = row['Party'];
+        this.Address = row['Address'];
+        this.GSTNo = row['GSTNo'];
 
         return this;
     }

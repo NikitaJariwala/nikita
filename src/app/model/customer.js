@@ -9,8 +9,12 @@ const thedb_1 = require("./thedb");
  */
 class Customer {
     constructor() {
-        this.id = -1;
-        this.name = '';
+        this.NO = -1;
+        this.Party = '';
+        this.Address = '';
+        this.GSTNo = '';
+        this.City = '';
+        this.State = '';
     }
     static get(id) {
         const sql = 'SELECT * FROM customer WHERE NO = $NO';
@@ -59,21 +63,23 @@ class Customer {
             }
         });
     }
-    update() {
-        const sql = `
-            UPDATE customer
-               SET name = $name
-             WHERE id = $id`;
-        const values = {
-            $name: this.name,
-        };
-        return thedb_1.TheDb.update(sql, values)
-            .then((result) => {
-            if (result.changes !== 1) {
-                throw new Error(`Expected 1 Customer to be updated. Was ${result.changes}`);
-            }
-        });
-    }
+    // public update(name: string): Promise<void> {
+    //     const sql = `
+    //         UPDATE customer
+    //            SET name = $name
+    //          WHERE id = $id`;
+    //
+    //     const values = {
+    //         $Party: name,
+    //     };
+    //
+    //     return TheDb.update(sql, values)
+    //         .then((result) => {
+    //             if (result.changes !== 1) {
+    //                 throw new Error(`Expected 1 Customer to be updated. Was ${result.changes}`);
+    //             }
+    //         });
+    // }
     delete(NO) {
         const sql = `
             DELETE FROM customer WHERE NO = $NO`;
@@ -88,8 +94,12 @@ class Customer {
         });
     }
     fromRow(row) {
-        this.id = row['id'];
-        this.name = row['name'];
+        this.State = row['State'];
+        this.City = row['City'];
+        this.NO = row['NO'];
+        this.Party = row['Party'];
+        this.Address = row['Address'];
+        this.GSTNo = row['GSTNo'];
         return this;
     }
 }

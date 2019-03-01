@@ -16,6 +16,7 @@ import {Customer} from "../model/customer";
 
 export class HomeComponent implements OnInit{
     public heroes: Hero[];
+    public customers: Customer[];
      formdata: any;
     ngOnInit(){
         this.formdata = new FormGroup({
@@ -105,9 +106,10 @@ export class HomeComponent implements OnInit{
     }
 
     public getHeroes() {
-        Hero.getAll()
+        Customer.getAll()
             .then((heroes) => {
-                this.heroes = heroes;
+                console.log("heroo===",heroes)
+                this.customers = heroes;
             });
     }
 

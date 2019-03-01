@@ -12,8 +12,8 @@ const about_component_1 = require("./About/about.component");
 const common_1 = require("@angular/common");
 const app_service_1 = require("./app.service");
 const appRoutes = [
-    { path: '', component: home_component_1.HomeComponent },
-    { path: 'home', component: about_component_1.AboutComponent }
+    { path: 'home', component: home_component_1.HomeComponent },
+    { path: '', component: about_component_1.AboutComponent }
 ];
 let AppModule = class AppModule {
 };

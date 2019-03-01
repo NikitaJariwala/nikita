@@ -298,6 +298,7 @@ let AboutComponent = class AboutComponent {
     ngOnInit() {
         customer_1.Customer.getAll()
             .then((customer) => {
+            console.log("customer====", customer);
             this.customers = customer;
         });
         // this.apiService

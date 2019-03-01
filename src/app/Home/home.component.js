@@ -6,7 +6,6 @@ const fs = require("fs");
 const path = require("path");
 const settings_1 = require("../model/settings");
 const thedb_1 = require("../model/thedb");
-const hero_1 = require("../model/hero");
 const { remote } = require('electron');
 const forms_1 = require("@angular/forms");
 const customer_1 = require("../model/customer");
@@ -94,9 +93,10 @@ let HomeComponent = class HomeComponent {
         });
     }
     getHeroes() {
-        hero_1.Hero.getAll()
+        customer_1.Customer.getAll()
             .then((heroes) => {
-            this.heroes = heroes;
+            console.log("heroo===", heroes);
+            this.customers = heroes;
         });
     }
     onMenu(hero) {

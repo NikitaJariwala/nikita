@@ -47,7 +47,7 @@
                   </select></div>
             <div >M/s.<input style="margin-left: 2%; font-weight:700;" type="text"
                                                           [(ngModel)]="invoice.customer_info.name"/></div>
-        
+
             <div ><input style="margin-left: 5%; font-weight:600; width: 100%;" type="text"
                                                [(ngModel)]="invoice.customer_info.address1"/></div>
             <div style=" font-weight:600; ">City :<input style="margin-left: 3%; font-size:17px; font-weight:700;" type="text"
@@ -89,7 +89,7 @@
                 <div class="col-xs-6 input-container  borderleft">
                     <input [(ngModel)]="item.description" style="width:100%; font-size:23px"/>
                 </div>
-               
+
                 <div class="col-xs-1 input-container borderleft">
                     <input [(ngModel)]="item.qty" style="font-size:23px" value="1" size="4" required />
                 </div>
@@ -97,7 +97,7 @@
                     <input [(ngModel)]="item.cost" style="font-size:23px; width:100%" value="0.00" required size="6"/>
                 </div>
                 <div class="col-xs-2 text-right input-container borderleft" style="font-size:21px">
-                    {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :'' }}
+                    {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :"" }}
                 </div>
             </div>
             <!-- <div class="row invoice-item">
@@ -137,7 +137,7 @@
         <div style="margin-left: 16px; font-weight:600; line-height:55px;">IN WORDS : </div>
         <div class="col-sm-8"><i>{{convertIntoWord()}}</i></div>
     </div>
- 
+
     <div class="row"  style=" border-bottom: 0.5px solid #404040; padding-bottom: 18px; font-size: 17px; padding-top: 18px;">
         <div class="col-xs-7">
             <div style=" font-weight:500;"><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
@@ -184,8 +184,11 @@
         <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
         <a href="#" class="btn btn-primary" [hidden]="printMode" (click)="printMode = true;">Turn On Print Mode</a>
         <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printMode = false;">Turn Off Print Mode</a>
+        <button  class="btn btn-primary"  (click)="onButtonClick()">go to home</button>
+
     </div>
 </div>
+
 
 <!-- <div [hidden]="printMode" class="copy noPrint">
     <a>Nikita Chevli</a>

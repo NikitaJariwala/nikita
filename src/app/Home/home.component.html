@@ -93,16 +93,25 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">NO</th>
+                    <th scope="col">Party</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">GSTNo</th>
+                    <th scope="col">City</th>
+                    <th scope="col">State</th>
+
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let hero of heroes">
-                    <th scope="row">{{hero.id}}</th>
-                    <td>
-                        <button class="btn btn-link" (click)="onMenu(hero)">{{hero.name}}</button>
-                    </td>
+                <tr *ngFor="let customer of customers">
+                    <th scope="row">{{customer.NO}}</th>
+                    <th scope="row">{{customer.Party}}</th>
+                    <th scope="row">{{customer.Address}}</th>
+                    <th scope="row">{{customer.GSTNo}}</th>
+                    <th scope="row">{{customer.City}}</th>
+                    <th scope="row">{{customer.State}}</th>
+
+
                 </tr>
                 </tbody>
             </table>

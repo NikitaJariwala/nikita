@@ -323,6 +323,7 @@ export class AboutComponent implements OnInit {
   ngOnInit() {
       Customer.getAll()
           .then((customer) => {
+              console.log("customer====",customer)
               this.customers = customer;
           });
     // this.apiService

@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 import { APIService } from './app.service';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'home', component: AboutComponent }
+    { path: 'home', component: HomeComponent },
+    { path: '', component: AboutComponent }
 ];
 
 @NgModule({
