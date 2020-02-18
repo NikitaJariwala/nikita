@@ -41,7 +41,7 @@
     "@angular/router": "4.4.4",
     "@angular/upgrade": "4.4.4",
     "@types/html2canvas": "0.0.35",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "core-js": "2.5.1",
     "css-loader": "^2.1.0",
     "jquery": "^3.3.1",
