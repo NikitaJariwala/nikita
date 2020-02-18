@@ -1,102 +1,100 @@
 <div class="container" id="invoice" style="max-width: 1280px; ">
+    <img style="z-index: -1;
+    align-items: left;
+    margin-top: 10px;
+    width: 117px;
+    position: absolute;" [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" />
+    <div style="margin-right: 95px;float: right;">
+        <div class="invoice-number-container" style="z-index: -1;
+    align-items: left;
+    margin-top: 10px;
+    float: right;
+    position: absolute;">
+            <div>TAX INVOICE</div>
+        </div>
+
+    </div>
     <div class="col-xs-12" style="text-align:center">
+
         || Shree Ram ||
     </div>
-    <div class="col-xs-12 heading">
 
-        <h1 style="font-size:45px">
-            <img [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" width="50"/>
+    <div class=" heading">
+
+        <h1 style="font-size:30px">
+
             <b>Shakshi Traders</b>
         </h1>
     </div>
-    <div class="col-xs-12 heading" >
-        <h5 style="font-size:20px; font-weight:600;">Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
+    <div class="heading" >
+        <h5 style="font-size:14px; font-weight:600;">Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
     </div>
-    <div class="col-xs-12 heading1" >
-        <h5 style="font-size:20px;font-weight:600;">91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
+    <div class="heading1" >
+        <h5 style="font-size:14px;font-weight:600;">91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
+         <div style="font-size:14px;font-weight:600;">Ph no : (+91) 9879411018, (+91) 9909258090</div>
     </div>
-    <div class="col-xs-12 heading1" >
-        <h5 style="font-size:20px; font-weight:600;">GSTIN NO : 24ATCPJ7889F1ZE</h5>
+    <div class="heading1" >
+        <div style="font-size:15px; font-weight:600; padding-top: 2px; padding-bottom: 2px;">GSTIN NO : 24ATCPJ7889F1ZE</div>
     </div>
 
-    <div>
-        <!-- <div class="col-sm-8"> -->
-            <div class="invoice-number-container">
-                <h4>TAX INVOICE</h4>
-            </div>
-        <!-- </div> -->
-        <!-- <div class="col-sm-4 logo-container"> -->
-            <!-- <input type="file" id="imgInp" (change)="readUrl($event)"/>
-            <div>
-                <div class="noPrint" [hidden]="printMode">
-                    <button (click)="editLogo()">Edit Logo</button>
-                    <a (click)="toggleLogo()" id="remove_logo">{{ logoRemoved ? 'Show' : 'Hide' }} logo</a>
-                </div>
-            </div> -->
-            <!--<div class="row borderbottom1px">Original for Recipient</div>-->
-            <!--<div class="row borderbottom1px">Duplicate for Supplier/ Transporter</div>-->
-            <!--<div class="row borderbottom1px">Triplicate for Supplier</div>-->
 
-        <!-- </div> -->
-    </div>
     <div class="row infos">
-        <div class="col-xs-7">
-                <div [hidden]="printMode"> <select required [(ngModel)]="invoice.customer_info.name1" (change)="onSelectChange($event.target.value)"> <!-- <== changed -->
+        <div class="col-xs-7" style="border-right: 1px solid #404040;">
+                <div class="noPrint" [hidden]="printMode"> <select required [(ngModel)]="invoice.customer_info.name1" (change)="onSelectChange($event.target.value)"> <!-- <== changed -->
                     <option selected="selected" disabled>customer...</option>
                     <option *ngFor="let customer of customers" value= {{customer.NO}}>{{ customer.Party }}</option>
                   </select></div>
-            <div >M/s.<input style="margin-left: 2%; font-weight:700;" type="text"
-                                                          [(ngModel)]="invoice.customer_info.name"/></div>
+            <div >M/s.<input style="margin-left: 2%; font-weight:700;" type="text" [(ngModel)]="invoice.customer_info.name"/></div>
 
-            <div ><input style="margin-left: 5%; font-weight:600; width: 100%;" type="text"
+            <div ><input style="margin-left: 5%; font-weight:600; width: 96%;" type="text"
                                                [(ngModel)]="invoice.customer_info.address1"/></div>
-            <div style=" font-weight:600; ">City :<input style="margin-left: 3%; font-size:17px; font-weight:700;" type="text"
+            <div style=" font-weight:600; ">City :<input style="margin-left: 3%; font-size:14px; font-weight:700;" type="text"
                                                             [(ngModel)]="invoice.customer_info.city"/></div>
-            <div style=" font-weight:600; ">State :<input style="margin-left: 2%; font-size:17px; width:79%; font-weight:700;" type="text"
+            <div style=" font-weight:600; ">State :<input style="margin-left: 2%; font-size:14px; width:79%; font-weight:700;" type="text"
                                                              [(ngModel)]="invoice.customer_info.state"/></div>
-            <div style=" font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:17px; width:79%; font-weight:700;" type="text"
+            <div style=" font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:14px; width:79%; font-weight:700;" type="text"
                                                              [(ngModel)]="invoice.customer_info.gstin"/></div>
 
-            <div data-[hidden]='printMode'>
-            </div>
+
         </div>
         <div class="col-xs-5 right">
-            <div class="input-container" style="font-weight:600; ">INVOICE NO:<input style="margin-left: 2%;" type="text"
+            <div class="input-container" style="font-weight:600; ">INVOICE NO:<input type="text" style="margin-left:2px;width:61px;"
                                                                   [(ngModel)]="invoice.company_info.invoicNo"/></div>
             <div class="input-container" style="font-weight:600; ">DATE:<input style="margin-left: 2%;" type="text"
                                                             [(ngModel)]="invoice.company_info.date"/></div>
 
-            <div class="input-container" style="font-weight:600; ">HNS CODE:<input style="margin-left: 2%;" type="text"
+            <div class="input-container" style="font-weight:600; ">HSN CODE:<input style="margin-left: 8px;width: 133px;" type="text"
                                                              [(ngModel)]="invoice.company_info.agent"/></div>
         </div>
     </div>
     <div>
         <div class="items-table">
-            <div class="row header" style="font-size:21px">
+            <div class="row header" style="font-size:14px">
                 <div class="col-xs-1 ">NO</div>
-                <div class="col-xs-6 borderleft">DESCRIPTION OF ITEMS</div>
-                <div class="col-xs-1 borderleft">QTY</div>
-                <div class="col-xs-2 borderleft">RATE</div>
-                <div class="col-xs-2 borderleft text-right">AMOUNT</div>
+                <div class="col-xs-6 borderleft" style="border-right: 0.5px solid #404040">DESCRIPTION OF ITEMS</div>
+                <div class="col-xs-1 ">QTY</div>
+                <div class="col-xs-2 borderleft" style="border-right: 0.5px solid #404040">RATE</div>
+                <div class="col-xs-2  text-right">AMOUNT</div>
             </div>
             <div class="row invoice-item"  *ngFor="let item of invoice.items; let i = index">
-                <div class="col-xs-1 remove-item-container" [style.display]="printMode?'none':'block'">
-                    <button [hidden]="printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
+                <div class="col-xs-1 remove-item-container" [style.display]="!printMode?'none':'block'">
+                    <button [hidden]="!printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
                 </div>
-                <div class="col-xs-1 input-container" [style.display]="printMode?'block':'none'">
-                    <div [hidden]="!printMode">{{item.description!=""?i+1:""}}</div>
+                <div class="col-xs-1 input-container" >
+                    <div >{{item.description!=""?i+1:""}}</div>
                 </div>
-                <div class="col-xs-6 input-container  borderleft">
-                    <input [(ngModel)]="item.description" style="width:100%; font-size:23px"/>
+                <div class="col-xs-6 input-container  borderleft" style="border-right: 0.5px solid #404040">
+                    <input [(ngModel)]="item.description" style="width:100%; font-size:14px"/>
                 </div>
 
-                <div class="col-xs-1 input-container borderleft">
-                    <input [(ngModel)]="item.qty" style="font-size:23px" value="1" size="4" required />
+                <div class="col-xs-1 input-container ">
+                    <input [(ngModel)]="item.qty" style="font-size:14px" value="1" size="4" required />
                 </div>
-                <div class="col-xs-2 input-container borderleft">
-                    <input [(ngModel)]="item.cost" style="font-size:23px; width:100%" value="0.00" required size="6"/>
+                <div class="col-xs-2 input-container borderleft" style="border-right: 0.5px solid #404040">
+                    <input [(ngModel)]="item.cost" style="font-size:14px; width:100%" value="0.00" required size="6"/>
                 </div>
-                <div class="col-xs-2 text-right input-container borderleft" style="font-size:21px">
+                <div class="col-xs-2 text-right input-container" style="font-size:14px">
+
                     {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :"" }}
                 </div>
             </div>
@@ -109,36 +107,36 @@
     </div>
     <div class="row" style="border-bottom: 0.5px solid #404040; border-top: 0.5px solid #404040">
         <div class="col-xs-12">
-            <div style="float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">
+            <div style="width: 15%;float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">
                 <div class="row">
-                    <div class=" text-right">Sub Total : <input style="width:15px"/></div>
-                    <div class=" text-right">{{invoiceSubTotal() }}</div>
+                    <div class=" text-right" style="display: inline-block;">Sub Total : <input style="width:15px"/></div>
+                    <div class=" text-right" style="width: 9%;display: inline-block;">{{invoiceSubTotal() }}</div>
                 </div>
                 <div class="row">
-                    <div class=" text-right">SGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
-                    <div class=" text-right">{{calculateSGST()}}</div>
+                    <div class=" text-right" style="display: inline-block;">SGST : <input [(ngModel)]="invoice.stax" style="width:35px"></div>
+                    <div class=" text-right" style="width: 9%;display: inline-block;">{{calculateSGST()}}</div>
                 </div>
                 <div class="row">
-                    <div class="text-right">CGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
-                    <div class="text-right">{{calculateCGST()}}</div>
+                    <div class="text-right" style="display: inline-block;">CGST : <input [(ngModel)]="invoice.ctax" style="width:35px"></div>
+                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateCGST()}}</div>
                 </div>
                 <div class="row">
-                    <div class="text-right">IGST : <input [(ngModel)]="invoice.tax" style="width:35px"></div>
-                    <div class="text-right">{{calculateIGST()}}</div>
+                    <div class="text-right" style="display: inline-block;">IGST : <input [(ngModel)]="invoice.itax" style="width:35px"></div>
+                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateIGST()}}</div>
                 </div>
                 <div class="row">
-                    <div class="text-right" style="font-weight:600; ">Grand Total : </div>
-                    <div class="text-right">{{calculateGrandTotal()}}</div>
+                    <div class="text-right" style="font-weight:600; display: inline-block;">Grand Total : </div>
+                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateGrandTotal()}}</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row" style=" border-bottom: 0.5px solid #404040">
-        <div style="margin-left: 16px; font-weight:600; line-height:55px;">IN WORDS : </div>
-        <div class="col-sm-8"><i>{{convertIntoWord()}}</i></div>
+        <div style="margin-left: 16px; font-weight:600; line-height:32px; display: inline-block;">IN WORDS : </div>
+        <div style="display: inline-block;"><i>{{convertIntoWord()}}</i></div>
     </div>
 
-    <div class="row"  style=" border-bottom: 0.5px solid #404040; padding-bottom: 18px; font-size: 17px; padding-top: 18px;">
+    <div class="row"  style=" border-bottom: 0.5px solid #404040; padding-bottom:9px; font-size: 11px; padding-top: 10px;">
         <div class="col-xs-7">
             <div style=" font-weight:500;"><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
             <div style=" font-weight:500;"><b>BANK ACCOUNT NO :</b> 1006021000612</div>
@@ -150,11 +148,11 @@
     </div>
 
     <div>
-        <div style="margin-left: 12px; margin-top: 5px; font-weight:700; ">TERMS :</div>
+        <div style="margin-left: 12px; margin-top: 5px; font-weight:700; ;font-size: 14px ">TERMS :</div>
     </div>
 
     <div>
-        <div style="margin-left: 12px; margin-top: 5px; font-weight:500;">
+        <div style=" margin-top: 5px; font-weight:500; font-size: 12px">
             <ol>
                 <li>Goods once sold will not be back or exchanged.</li>
                 <li>Interest 2.5% Per Month will be charged on amount remaining unpaid from the date of bill</li>
@@ -164,7 +162,7 @@
         </div>
     </div>
 
-    <div style="margin-top: 46px">
+    <div style="margin-top: 43px">
         <!-- <div class="col-xs-3">
             <div style="margin-left: 16px; font-weight:700;">Prepared By :</div>
         </div>

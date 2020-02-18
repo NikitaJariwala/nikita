@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { TheDb } from '../model/thedb';
 //import { APIService } from '../app.service';
 //import { TheDb } from '../model/thedb';
 import {Customer} from "../model/customer";
-//const { remote } = require('electron')
+import * as fs from "fs";
+import {Settings} from "../model/settings";
+const { remote } = require('electron')
 
 @Component({
     selector: 'app-about',
@@ -18,10 +21,13 @@ export class AboutComponent implements OnInit {
     person: string
   printMode   = false
   logoRemoved = false;
-  logo='/assets/logo.jpg'
+  logo='../src/assets/ST1.jpg'
   invoice: any = {
-    tax: 13.00,
-    invoice_number: 10,
+    stax: "6%",
+      ctax: "6%",
+      itax: "6%",
+
+      invoice_number: 10,
     customer_info: {
       name: 'Nikita Chevli',
       no: '91',
@@ -49,7 +55,7 @@ export class AboutComponent implements OnInit {
         { qty: '', description: '', cost: '', hsnCode:'' },
         { qty: '', description: '', cost: '', hsnCode:'' },
         { qty: '', description: '', cost: '', hsnCode:'' },
-
+        { qty: '', description: '', cost: '', hsnCode:'' },
 
     ]
   };
@@ -57,7 +63,17 @@ export class AboutComponent implements OnInit {
   constructor(private router: Router) {
     this.mainForm = this.getForm();
     this.invoice = this.invoice
-    this.person = "nikiiiii"
+    this.person = "nikiiiii";
+      Settings.initialize();
+           //this.openDb(Settings.dbPath);
+
+      if (fs.existsSync(Settings.dbPath)) {
+          this.openDb(Settings.dbPath);
+      } else if (Settings.hasFixedDbLocation) {
+          this.createDb(Settings.dbPath);
+      } else {
+          this.createDb();
+      }
   }
   name = 'Angular 6';
   mainForm: FormGroup;
@@ -67,7 +83,58 @@ export class AboutComponent implements OnInit {
     { price: 30, time: new Date(), quantity: 3 },
     { price: 40, time: new Date(), quantity: 5 }
   ]
+    public openDb(filename:string) {
+        TheDb.openDb(filename)
+            .then(() => {
+                if (!Settings.hasFixedDbLocation) {
+                    Settings.dbPath = filename;
+                    Settings.write();
+                }
+            })
+            .then(() => {
+                this.getCutomer();
+            })
+            .catch((reason) => {
+                // Handle errors
+                console.log('Error occurred while opening database: ', reason);
+            });
+    }
 
+    public createDb(filename?: string) {
+        if (!filename) {
+            const options = {
+                title: 'Create file',
+                defaultPath: remote.app.getPath('documents'),
+                filters: [
+                    {
+                        name: 'Database',
+                        extensions: ['db'],
+                    },
+                ],
+            };
+            filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), options);
+           // filename="D:/sqlite.db"
+        }
+
+        if (!filename) {
+            return;
+        }
+
+        TheDb.createDb(filename)
+            .then((dbPath) => {
+                if (!Settings.hasFixedDbLocation) {
+                    Settings.dbPath = dbPath;
+                    console.log("db path==",dbPath)
+                    Settings.write();
+                }
+            })
+            .then(() => {
+                this.getCutomer();
+            })
+            .catch((reason) => {
+                console.log(reason);
+            });
+    }
   getForm(): FormGroup {
     return new FormGroup({
       globalPrice: new FormControl(),
@@ -145,21 +212,21 @@ export class AboutComponent implements OnInit {
     return total;
   };
  calculateSGST () {
-    return ((this.invoice.tax * this.invoiceSubTotal())/100);
+    return ((+(this.invoice.stax.substr(0,this.invoice.stax.indexOf('%'))) * this.invoiceSubTotal())/100);
   };
 
   calculateCGST () {
-    return ((this.invoice.tax * this.invoiceSubTotal())/100);
+    return ((+(this.invoice.ctax.substr(0,this.invoice.ctax.indexOf('%'))) * this.invoiceSubTotal())/100);
   };
 
   calculateIGST () {
-    return ((this.invoice.tax * this.invoiceSubTotal())/100);
+    return ((+(this.invoice.itax.substr(0,this.invoice.itax.indexOf('%'))) * this.invoiceSubTotal())/100);
   };
 
   // Calculates the grand total of the invoice
   calculateGrandTotal () {
     this.saveInvoice();
-    return Math.round(this.calculateSGST() +this.calculateCGST ()+ this.invoiceSubTotal());
+    return Math.round(this.calculateSGST() +this.calculateCGST ()+this.calculateIGST ()+ this.invoiceSubTotal());
   };
 
   getFormGroupForLine(orderLine: any): FormGroup {
@@ -169,7 +236,7 @@ export class AboutComponent implements OnInit {
   }
 
   convertIntoWord() {
-    let amount = (this.calculateSGST() +this.calculateCGST () + this.invoiceSubTotal()).toString();
+    let amount = Math.round(this.calculateSGST() +this.calculateCGST ()+this.calculateIGST () + this.invoiceSubTotal()).toString();
       var words = new Array();
       words[0] = '';
       words[1] = 'One';
@@ -305,27 +372,29 @@ export class AboutComponent implements OnInit {
   }
 
   onSelectChange(customerNo:any) {
-    let info=  Customer.get(customerNo)
+     Customer.get(customerNo)
         .then((customer) => {
-            return customer
+            this.invoice.customer_info= {
+                name: customer['Party'],
+                no: '91',
+                address1: customer['Address'],
+                city: customer['City'],
+                state: customer['State'],
+                gstin: customer['GSTNo']
+            }
         });
-      console.log("customer=====",info)
 
-      this.invoice.customer_info= {
-      name: info['Party'],
-      no: '91',
-      address1: info['Address'],
-        city: info['City'],
-      state: info['State'],
-      gstin: info['GSTNo']
-    }
+
   }
+
+    getCutomer() {
+        Customer.getAll()
+            .then((customer) => {
+                this.customers = customer;
+            });
+    }
   ngOnInit() {
-      Customer.getAll()
-          .then((customer) => {
-              console.log("customer====",customer)
-              this.customers = customer;
-          });
+
     // this.apiService
     //         .getCustomer()
     //         .subscribe(data  => {

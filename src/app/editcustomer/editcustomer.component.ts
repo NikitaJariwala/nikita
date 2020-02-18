@@ -1,35 +1,42 @@
 import {Component, OnInit} from '@angular/core';
 import * as fs from 'fs';
-import * as path from 'path';
 import { Settings } from '../model/settings';
 import { TheDb } from '../model/thedb';
 import {Hero} from "../model/hero";
 const { remote } = require('electron')
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import {Customer} from "../model/customer";
-import {Router} from "@angular/router";
+import { ActivatedRoute,Router } from '@angular/router'
 
 
 @Component({
     selector: 'app-home',
-    templateUrl: './home.component.html'
+    templateUrl: './editcustomer.component.html'
 })
 
-export class HomeComponent implements OnInit{
+export class EditcustomerComponent implements OnInit{
     public heroes: Hero[];
+    public No: any;
+    public sub: any;
     public customers: Customer[];
-     formdata: any;
+     editform: any;
     ngOnInit(){
-        this.formdata = new FormGroup({
-            NO: new FormControl("", Validators.required),
-            Party: new FormControl("", Validators.required),
+
+        this.sub = this.route.params.subscribe(params => {
+            this.No = params['id'];
+        });
+        console.log(this.No);
+
+        this.editform = new FormGroup({
+            NO: new FormControl(this.No, Validators.required),
+            Party: new FormControl("swfwefe", Validators.required),
             Address: new FormControl("", Validators.required),
             City: new FormControl(""),
             State: new FormControl("", Validators.required),
             GSTNo: new FormControl("", Validators.required)
         });
     }
-    constructor(private router: Router) {
+    constructor(private route: ActivatedRoute, private router: Router) {
         Settings.initialize();
 
         if (fs.existsSync(Settings.dbPath)) {
@@ -40,43 +47,27 @@ export class HomeComponent implements OnInit{
             this.createDb();
         }
     }
-    onClickSubmit(data: any) {
-        Customer.insert(+data.No,  data.Party, data.Address, data.GSTNo, data.City, data.State)
+    onSubmit() {
+        Customer.update(+(this.editform.get('NO').value),  this.editform.get('Party').value, this.editform.get('Address').value,this.editform.get('GSTNo').value, this.editform.get('City').value, this.editform.get('State').value)
             .then((customer:any) => {
-                console.log("customer===",customer)
-                //this.heroes = heroes;
-            });
-    }
-
-    backToBill() :void {
-        this.router.navigate(['']);
-
-    }
-
-    // deleteUser(user: User): void {
-    //     this.userService.deleteUser(user.id)
-    //         .subscribe( data => {
-    //             this.users = this.users.filter(u => u !== user);
-    //         })
-    // };
-
-    onEdit(): void {
-      //  localStorage.removeItem("editUserId");
-      // localStorage.setItem("editUserId", customer.NO.toString());
-        this.router.navigate(['editcustomer']);
-    };
-
-    onDelete(no: any, index:any): void {
-        Customer.delete(+(no))
-            .then((customer:any) => {
-                this.customers.splice(index, 1);
                 console.log("customer===",customer);
                 this.router.navigate(['home']);
 
                 //this.heroes = heroes;
             });
-    };
+    }
+    onEdit() {
 
+    }
+    //onEdit(customer: any) {
+       // this.dialogService.confirm('rthth', 'hjhj', <BuiltInOptions>{
+
+        // }).then((result: boolean) => {
+        //      console.log("customer====",customer)
+        //     console.log("result====",result)
+        //     // result
+        // });
+   // }
     public openDb(filename: string) {
         TheDb.openDb(filename)
             .then(() => {
@@ -128,18 +119,20 @@ export class HomeComponent implements OnInit{
             });
     }
 
-    public onRestoreDb() {
-        TheDb.importJson(path.join(Settings.dbFolder, 'database.init.json'), false)
-            .then(() => {
-                this.getHeroes();
-            });
-    }
-
     public getHeroes() {
-        Customer.getAll()
-            .then((heroes) => {
-                console.log("heroo===",heroes)
-                this.customers = heroes;
+        Customer.get(+this.No)
+            .then((customer:any) => {
+                console.log("customer===",customer);
+                this.editform.setValue({
+                    NO: customer.NO,
+                    Party: customer.Party,
+                    Address: customer.Address,
+                    City: customer.City,
+                    State: customer.State,
+                    GSTNo: customer.GSTNo
+                });
+
+                //this.heroes = heroes;
             });
     }
 

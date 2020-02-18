@@ -53,14 +53,13 @@ class Settings {
                 Settings.settingsPath = path.join(electron_1.remote.app.getPath('userData'), 'settings.json');
             }
             //noinspection TypeScriptUnresolvedFunction
-            const isDevMode = /[eE]lectron/.test(path.basename(electron_1.remote.app.getPath('exe'), '.exe'));
-            if (isDevMode) {
-                Settings.dbFolder = path.join(appPath, Settings.dataSubFolder);
-            }
-            else {
-                // remote.process.resoursesPath yields undefined
-                Settings.dbFolder = path.join(electron_1.remote.getGlobal('process').resourcesPath, Settings.dataSubFolder);
-            }
+            // const isDevMode = /[eE]lectron/.test(path.basename(remote.app.getPath('exe'), '.exe'));
+            //  if (isDevMode) {
+            Settings.dbFolder = path.join(appPath, Settings.dataSubFolder);
+            // } else {
+            //     // remote.process.resoursesPath yields undefined
+            //     Settings.dbFolder = path.join(remote.getGlobal('process').resourcesPath, Settings.dataSubFolder);
+            // }
         }
     }
     static fromJson(settings) {

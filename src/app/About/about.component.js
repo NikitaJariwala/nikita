@@ -4,18 +4,23 @@ const tslib_1 = require("tslib");
 const core_1 = require("@angular/core");
 const router_1 = require("@angular/router");
 const forms_1 = require("@angular/forms");
+const thedb_1 = require("../model/thedb");
 //import { APIService } from '../app.service';
 //import { TheDb } from '../model/thedb';
 const customer_1 = require("../model/customer");
-//const { remote } = require('electron')
+const fs = require("fs");
+const settings_1 = require("../model/settings");
+const { remote } = require('electron');
 let AboutComponent = class AboutComponent {
     constructor(router) {
         this.router = router;
         this.printMode = false;
         this.logoRemoved = false;
-        this.logo = '/assets/logo.jpg';
+        this.logo = '../src/assets/ST1.jpg';
         this.invoice = {
-            tax: 13.00,
+            stax: "6%",
+            ctax: "6%",
+            itax: "6%",
             invoice_number: 10,
             customer_info: {
                 name: 'Nikita Chevli',
@@ -43,6 +48,7 @@ let AboutComponent = class AboutComponent {
                 { qty: '', description: '', cost: '', hsnCode: '' },
                 { qty: '', description: '', cost: '', hsnCode: '' },
                 { qty: '', description: '', cost: '', hsnCode: '' },
+                { qty: '', description: '', cost: '', hsnCode: '' },
             ]
         };
         this.name = 'Angular 6';
@@ -55,6 +61,66 @@ let AboutComponent = class AboutComponent {
         this.mainForm = this.getForm();
         this.invoice = this.invoice;
         this.person = "nikiiiii";
+        settings_1.Settings.initialize();
+        //this.openDb(Settings.dbPath);
+        if (fs.existsSync(settings_1.Settings.dbPath)) {
+            this.openDb(settings_1.Settings.dbPath);
+        }
+        else if (settings_1.Settings.hasFixedDbLocation) {
+            this.createDb(settings_1.Settings.dbPath);
+        }
+        else {
+            this.createDb();
+        }
+    }
+    openDb(filename) {
+        thedb_1.TheDb.openDb(filename)
+            .then(() => {
+            if (!settings_1.Settings.hasFixedDbLocation) {
+                settings_1.Settings.dbPath = filename;
+                settings_1.Settings.write();
+            }
+        })
+            .then(() => {
+            this.getCutomer();
+        })
+            .catch((reason) => {
+            // Handle errors
+            console.log('Error occurred while opening database: ', reason);
+        });
+    }
+    createDb(filename) {
+        if (!filename) {
+            const options = {
+                title: 'Create file',
+                defaultPath: remote.app.getPath('documents'),
+                filters: [
+                    {
+                        name: 'Database',
+                        extensions: ['db'],
+                    },
+                ],
+            };
+            filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), options);
+            // filename="D:/sqlite.db"
+        }
+        if (!filename) {
+            return;
+        }
+        thedb_1.TheDb.createDb(filename)
+            .then((dbPath) => {
+            if (!settings_1.Settings.hasFixedDbLocation) {
+                settings_1.Settings.dbPath = dbPath;
+                console.log("db path==", dbPath);
+                settings_1.Settings.write();
+            }
+        })
+            .then(() => {
+            this.getCutomer();
+        })
+            .catch((reason) => {
+            console.log(reason);
+        });
     }
     getForm() {
         return new forms_1.FormGroup({
@@ -126,21 +192,21 @@ let AboutComponent = class AboutComponent {
     }
     ;
     calculateSGST() {
-        return ((this.invoice.tax * this.invoiceSubTotal()) / 100);
+        return ((+(this.invoice.stax.substr(0, this.invoice.stax.indexOf('%'))) * this.invoiceSubTotal()) / 100);
     }
     ;
     calculateCGST() {
-        return ((this.invoice.tax * this.invoiceSubTotal()) / 100);
+        return ((+(this.invoice.ctax.substr(0, this.invoice.ctax.indexOf('%'))) * this.invoiceSubTotal()) / 100);
     }
     ;
     calculateIGST() {
-        return ((this.invoice.tax * this.invoiceSubTotal()) / 100);
+        return ((+(this.invoice.itax.substr(0, this.invoice.itax.indexOf('%'))) * this.invoiceSubTotal()) / 100);
     }
     ;
     // Calculates the grand total of the invoice
     calculateGrandTotal() {
         this.saveInvoice();
-        return Math.round(this.calculateSGST() + this.calculateCGST() + this.invoiceSubTotal());
+        return Math.round(this.calculateSGST() + this.calculateCGST() + this.calculateIGST() + this.invoiceSubTotal());
     }
     ;
     getFormGroupForLine(orderLine) {
@@ -149,7 +215,7 @@ let AboutComponent = class AboutComponent {
         });
     }
     convertIntoWord() {
-        let amount = (this.calculateSGST() + this.calculateCGST() + this.invoiceSubTotal()).toString();
+        let amount = Math.round(this.calculateSGST() + this.calculateCGST() + this.calculateIGST() + this.invoiceSubTotal()).toString();
         var words = new Array();
         words[0] = '';
         words[1] = 'One';
@@ -281,26 +347,25 @@ let AboutComponent = class AboutComponent {
     submitForm() {
     }
     onSelectChange(customerNo) {
-        let info = customer_1.Customer.get(customerNo)
+        customer_1.Customer.get(customerNo)
             .then((customer) => {
-            return customer;
+            this.invoice.customer_info = {
+                name: customer['Party'],
+                no: '91',
+                address1: customer['Address'],
+                city: customer['City'],
+                state: customer['State'],
+                gstin: customer['GSTNo']
+            };
         });
-        console.log("customer=====", info);
-        this.invoice.customer_info = {
-            name: info['Party'],
-            no: '91',
-            address1: info['Address'],
-            city: info['City'],
-            state: info['State'],
-            gstin: info['GSTNo']
-        };
     }
-    ngOnInit() {
+    getCutomer() {
         customer_1.Customer.getAll()
             .then((customer) => {
-            console.log("customer====", customer);
             this.customers = customer;
         });
+    }
+    ngOnInit() {
         // this.apiService
         //         .getCustomer()
         //         .subscribe(data  => {

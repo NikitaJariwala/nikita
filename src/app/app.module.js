@@ -9,18 +9,21 @@ const http_1 = require("@angular/common/http");
 const app_component_1 = require("./app.component");
 const home_component_1 = require("./Home/home.component");
 const about_component_1 = require("./About/about.component");
+const editcustomer_component_1 = require("./editcustomer/editcustomer.component");
 const common_1 = require("@angular/common");
 const app_service_1 = require("./app.service");
 const appRoutes = [
     { path: 'home', component: home_component_1.HomeComponent },
-    { path: '', component: about_component_1.AboutComponent }
+    { path: '', component: about_component_1.AboutComponent },
+    { path: 'editcustomer/:id', component: editcustomer_component_1.EditcustomerComponent }
 ];
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule, common_1.CommonModule, http_1.HttpClientModule, router_1.RouterModule.forRoot(appRoutes, { useHash: true })],
-        declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, about_component_1.AboutComponent],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, forms_1.ReactiveFormsModule,
+            common_1.CommonModule, http_1.HttpClientModule, router_1.RouterModule.forRoot(appRoutes, { useHash: true })],
+        declarations: [app_component_1.AppComponent, home_component_1.HomeComponent, about_component_1.AboutComponent, editcustomer_component_1.EditcustomerComponent],
         providers: [
             app_service_1.APIService
         ],

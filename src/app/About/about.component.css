@@ -11,11 +11,11 @@
 }
 
 .items-table .row {
-    line-height: 2.5em;
+    line-height: 1.5em;
 }
 
 .items-table .row:last-child {
-    line-height: 2.5em;
+    line-height: 1.5em;
 }
 
 .slide-down-enter.slide-down-enter-active,
@@ -54,9 +54,8 @@ input:focus {
 
 .heading {
     color: #ce0c15;
-    margin-bottom: 1em;
     text-align: center;
-    line-height: 2.5em;
+    line-height: 1.5em;
 }
 
 .heading1 {
@@ -95,7 +94,6 @@ input:focus {
 }
 
 .infos .right {
-    border-left: 0.5px solid #404040 !important;
 }
 
 .borderleft {
@@ -148,7 +146,6 @@ input:focus {
     }
 
     .infos .right {
-        border-left: 0.5px solid #404040 !important;
     }
 
     .borderleft {

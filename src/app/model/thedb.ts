@@ -19,8 +19,8 @@ export class TheDb {
     private static readonly version = 1;
     private static db: Database;
 
-    public static selectOne(sql: string, values: {}): Promise<{}> {
-        return new Promise<{}>((resolve, reject) => {
+    public static selectOne(sql: string, values: {}): Promise<Array<{}>> {
+        return new Promise<Array<{}>>((resolve, reject) => {
             TheDb.db.get(sql, values, (err, row) => {
                 if (err) {
                     reject(err);
@@ -198,7 +198,7 @@ export class TheDb {
         const schemaPath = path.join(Settings.dbFolder, `database.db.sql`);
         const schema = fs.readFileSync(schemaPath, { encoding: 'utf8' });
 
-        // Create data directory in userdata folder
+       // Create data directory in userdata folder
         if (!fs.existsSync(path.join(dbPath, '..'))) {
             fs.mkdirSync(path.join(dbPath, '..'));
         }

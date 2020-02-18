@@ -9,8 +9,10 @@ const thedb_1 = require("../model/thedb");
 const { remote } = require('electron');
 const forms_1 = require("@angular/forms");
 const customer_1 = require("../model/customer");
+const router_1 = require("@angular/router");
 let HomeComponent = class HomeComponent {
-    constructor() {
+    constructor(router) {
+        this.router = router;
         settings_1.Settings.initialize();
         if (fs.existsSync(settings_1.Settings.dbPath)) {
             this.openDb(settings_1.Settings.dbPath);
@@ -39,6 +41,31 @@ let HomeComponent = class HomeComponent {
             //this.heroes = heroes;
         });
     }
+    backToBill() {
+        this.router.navigate(['']);
+    }
+    // deleteUser(user: User): void {
+    //     this.userService.deleteUser(user.id)
+    //         .subscribe( data => {
+    //             this.users = this.users.filter(u => u !== user);
+    //         })
+    // };
+    onEdit() {
+        //  localStorage.removeItem("editUserId");
+        // localStorage.setItem("editUserId", customer.NO.toString());
+        this.router.navigate(['editcustomer']);
+    }
+    ;
+    onDelete(no, index) {
+        customer_1.Customer.delete(+(no))
+            .then((customer) => {
+            this.customers.splice(index, 1);
+            console.log("customer===", customer);
+            this.router.navigate(['home']);
+            //this.heroes = heroes;
+        });
+    }
+    ;
     openDb(filename) {
         thedb_1.TheDb.openDb(filename)
             .then(() => {
@@ -69,9 +96,9 @@ let HomeComponent = class HomeComponent {
             };
             filename = remote.dialog.showSaveDialog(remote.getCurrentWindow(), options);
         }
-        if (!filename) {
-            return;
-        }
+        // if (!filename) {
+        //     return;
+        // }
         thedb_1.TheDb.createDb(filename)
             .then((dbPath) => {
             if (!settings_1.Settings.hasFixedDbLocation) {
@@ -117,7 +144,7 @@ HomeComponent = tslib_1.__decorate([
         selector: 'app-home',
         templateUrl: './home.component.html'
     }),
-    tslib_1.__metadata("design:paramtypes", [])
+    tslib_1.__metadata("design:paramtypes", [router_1.Router])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
 //# sourceMappingURL=home.component.js.map

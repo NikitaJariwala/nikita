@@ -13,7 +13,7 @@ function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     title: 'ng2-electron',
-    icon: `${__dirname}/assets/angular-logo.png`,
+    icon: `${__dirname}/assets/ST1.jpg`,
     width: 800,
     height: 600
   })

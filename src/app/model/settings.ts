@@ -80,13 +80,13 @@ export class Settings {
             }
 
             //noinspection TypeScriptUnresolvedFunction
-            const isDevMode = /[eE]lectron/.test(path.basename(remote.app.getPath('exe'), '.exe'));
-            if (isDevMode) {
+           // const isDevMode = /[eE]lectron/.test(path.basename(remote.app.getPath('exe'), '.exe'));
+          //  if (isDevMode) {
                 Settings.dbFolder = path.join(appPath, Settings.dataSubFolder);
-            } else {
-                // remote.process.resoursesPath yields undefined
-                Settings.dbFolder = path.join(remote.getGlobal('process').resourcesPath, Settings.dataSubFolder);
-            }
+            // } else {
+            //     // remote.process.resoursesPath yields undefined
+            //     Settings.dbFolder = path.join(remote.getGlobal('process').resourcesPath, Settings.dataSubFolder);
+            // }
         }
     }
 

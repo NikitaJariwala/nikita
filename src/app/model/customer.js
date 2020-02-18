@@ -16,12 +16,14 @@ class Customer {
         this.City = '';
         this.State = '';
     }
-    static get(id) {
+    static get(NO) {
         const sql = 'SELECT * FROM customer WHERE NO = $NO';
-        const values = { $NO: id };
+        const values = { $NO: NO };
+        console.log("no in customer=====", NO);
         return thedb_1.TheDb.selectOne(sql, values)
             .then((row) => {
             if (row) {
+                console.log("row=====", row);
                 return new Customer().fromRow(row);
             }
             else {
@@ -63,24 +65,32 @@ class Customer {
             }
         });
     }
-    // public update(name: string): Promise<void> {
-    //     const sql = `
-    //         UPDATE customer
-    //            SET name = $name
-    //          WHERE id = $id`;
-    //
-    //     const values = {
-    //         $Party: name,
-    //     };
-    //
-    //     return TheDb.update(sql, values)
-    //         .then((result) => {
-    //             if (result.changes !== 1) {
-    //                 throw new Error(`Expected 1 Customer to be updated. Was ${result.changes}`);
-    //             }
-    //         });
-    // }
-    delete(NO) {
+    static update(NO, Party, Address, GSTNo, City, State) {
+        const sql = `
+            UPDATE customer
+               SET NO = $NO,
+                Party = $Party,
+                Address = $Address,
+                GSTNo = $GSTNo,
+                City = $City,
+                State = $State
+             WHERE NO = $NO`;
+        const values = {
+            $NO: NO,
+            $Party: Party,
+            $Address: Address,
+            $GSTNo: GSTNo,
+            $City: City,
+            $State: State
+        };
+        return thedb_1.TheDb.update(sql, values)
+            .then((result) => {
+            if (result.changes !== 1) {
+                throw new Error(`Expected 1 Customer to be updated. Was ${result.changes}`);
+            }
+        });
+    }
+    static delete(NO) {
         const sql = `
             DELETE FROM customer WHERE NO = $NO`;
         const values = {
@@ -100,6 +110,7 @@ class Customer {
         this.Party = row['Party'];
         this.Address = row['Address'];
         this.GSTNo = row['GSTNo'];
+        // console.log("this====", this)
         return this;
     }
 }

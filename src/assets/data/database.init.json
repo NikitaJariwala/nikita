@@ -25,14 +25,340 @@
 		    }
 		],
         "customer": [
-            {
-                "NO": "1",
-                "Party": "Mr. Nice",
-                "Address":"xyz",
-                "GSTNo":"rtrtret453456546",
-                "City":"Suart",
-                "State":"rgrg"
-            }
+
+                {
+
+                    "No": 1,
+                    "Party": "AD Enterprise",
+                    "Address": "2, Ankash Complex, Puna to Bombay Market Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24ATJPT0344E1ZV"
+                },
+                {
+
+                    "No": 2,
+                    "Party": "BLS Lace Store",
+                    "Address": "Shekh Karim Bux Market, Machhahata",
+                    "City": "Patna City",
+                    "State": "Bihar",
+                    "GSTNO": "10AUOPK0345G1Z1"
+                },
+                {
+
+                    "No": 3,
+                    "Party": "New Om Sai Lace Enterprise",
+                    "Address": "1, Shop No1-2, Viraj Apt. Netalde Society, Punagam",
+                    "City": "surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BHWPM4265R1ZA"
+                },
+                {
+
+                    "No": 4,
+                    "Party": "Pritam Fancy Lace",
+                    "Address": "215-A, Yogeswar Raw House,Shyamdham Chock",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24FZAPS2472A1ZN"
+                },
+                {
+
+                    "No": 5,
+                    "Party": "The Pritam Lace",
+                    "Address": "106, 1st Floor, Sanam Apt, Ranujadham Soc, Sitanagar Archna Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BRNPK2267C1ZX"
+                },
+                {
+
+                    "No": 6,
+                    "Party": "Kanani Lace Empire",
+                    "Address": "200, Sitanagar Soc.,Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24APRPK9857P1ZP"
+                },
+                {
+
+                    "No": 7,
+                    "Party": "Rajvi Lace Border",
+                    "Address": "12-13, Anupam Plaza, Archna to Puna Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BKEPB8178D1ZD"
+                },
+                {
+
+                    "No": 8,
+                    "Party": "Bhavya Lace",
+                    "Address": "333, Chandralok Soc, Parvat Gam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AXAPK7891G1ZB"
+                },
+                {
+
+                    "No": 9,
+                    "Party": "Sai Pritam Lace",
+                    "Address": "13, Radha Bag Soc, Katargam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BVMPM0739C1ZR"
+                },
+                {
+
+                    "No": 10,
+                    "Party": "Kanchan Lace Materials",
+                    "Address": "9, Sitaram Soc, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AMCPC8431H1ZF"
+                },
+                {
+
+                    "No": 11,
+                    "Party": "Khodal Lace & Material",
+                    "Address": "3, Netal De Park Soc, Nr. Sitanagar Chowk, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BBIPG8288G1ZE"
+                },
+                {
+
+                    "No": 12,
+                    "Party": "Kirtan Lace",
+                    "Address": "254, Geetanagar Soc, Nr.Sitanagar, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AKKPV5590J1ZH"
+                },
+                {
+
+                    "No": 13,
+                    "Party": "Laxya Interlace Pvt. Ltd.",
+                    "Address": "4, Ajmal Palace, Nr.Sitanagr Soc, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AACCL4429K1ZH"
+                },
+                {
+
+                    "No": 14,
+                    "Party": "Mahotsav Creation",
+                    "Address": "Mahotsav House, Upper Ground, Sakar Tex. M kt, Ring Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AAECM2394Q1ZY"
+                },
+                {
+
+                    "No": 15,
+                    "Party": "Maqbool & Co.",
+                    "Address": "88, Ravindra Sarani",
+                    "City": "",
+                    "State": "Kolkatta",
+                    "GSTNO": "19AHSPM1463E1Z3"
+                },
+                {
+
+                    "No": 16,
+                    "Party": "OM Trendz",
+                    "Address": "Om House, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AADFO9204D1ZN"
+                },
+                {
+
+                    "No": 17,
+                    "Party": "Patel Materials",
+                    "Address": "153 to 155, Shyam Shopping, Shreenathdwar Soc. Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AGNPV7176P1Z9"
+                },
+                {
+
+                    "No": 18,
+                    "Party": "Prathna Lace",
+                    "Address": "F-101, Vrajratna Residency, Sarthana Jakatnaka",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BBPPJ2851R1Z0"
+                },
+                {
+
+                    "No": 19,
+                    "Party": "Pritam Enterprise",
+                    "Address": "15, Netal De Park Soc, Nr.Sitanagar Char Rasta, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AARFP0817D1ZF"
+                },
+                {
+
+                    "No": 20,
+                    "Party": "Pritam Lace",
+                    "Address": "F 17-26, Sarthak Complex, Nr.Archna School",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AAKFP9432B1ZD"
+                },
+                {
+
+                    "No": 21,
+                    "Party": "Pritam Lace & Dhupiyan",
+                    "Address": "26, Shivshakti Soc, Punagam Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AAUFP7441C1Z4"
+                },
+                {
+
+                    "No": 22,
+                    "Party": "Shree Dwarkesh Lace Border",
+                    "Address": "5, Creation Plaza-I, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AEXPV4373E1ZX"
+                },
+                {
+
+                    "No": 23,
+                    "Party": "V Trendz",
+                    "Address": "A 119, Landmark Empire Bldg, Surat-Kadodara Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AALFV6002E1ZG"
+                },
+                {
+
+                    "No": 24,
+                    "Party": "Shivam Enterprise",
+                    "Address": "Varachha",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24ATAPK6818M1ZH"
+                },
+                {
+
+                    "No": 25,
+                    "Party": "Suresh Trading Co.",
+                    "Address": "3, Bhavani Bhuvan, Bhavani shankar Road, Opp.Sharda Ashram School, Dadar",
+                    "City": "Mumbai",
+                    "State": "Maharastra",
+                    "GSTNO": "27BKFPS7242Q1ZB"
+                },
+                {
+
+                    "No": 26,
+                    "Party": "Aaditya Creation",
+                    "Address": "Udhna",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AAKPJ5325R1Z9"
+                },
+                {
+
+                    "No": 27,
+                    "Party": "Sadguru Krupa Lace",
+                    "Address": "6, Anupam Plaza, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AXUPK1000H1ZS"
+                },
+                {
+
+                    "No": 28,
+                    "Party": "Ambika Fab Design ( India ) LLP",
+                    "Address": "HG 1 to 5, Twin Tower, Ring Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24ABEFA7568E1ZH"
+                },
+                {
+
+                    "No": 29,
+                    "Party": "Sanskruti Fancy Lace",
+                    "Address": "6, Anupam Plaza, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24ARHPK1498G1ZP"
+                },
+                {
+
+                    "No": 30,
+                    "Party": "Suresh Fahion Hub Pvt. Ltd.",
+                    "Address": "1st floor, 3, Sai Bazaar Shoping Centre,1st Gothan Lane, Opp.Railway Station, Santacruze",
+                    "City": "Mumbai",
+                    "State": "Maharastra",
+                    "GSTNO": "27AAQCS7096B1ZW"
+                },
+                {
+
+                    "No": 31,
+                    "Party": "Rajesh Art",
+                    "Address": "Chal 26, Room 27, Gate 7, MHB Colony, Malvani, Malad",
+                    "City": "Mumbai",
+                    "State": "Maharastra",
+                    "GSTNO": "27AFDPV3015J1ZD"
+                },
+                {
+
+                    "No": 32,
+                    "Party": "Vijay Bharti Textiles",
+                    "Address": "69-B, Road No.4, Udhyognagar, Udhna",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24ADIPP4334P1Z4"
+                },
+                {
+
+                    "No": 33,
+                    "Party": "S B Jain & Co",
+                    "Address": "Chhipi Chawl",
+                    "City": "Mumbai",
+                    "State": "Maharastra",
+                    "GSTNO": "27AAAPN5368A1ZX"
+                },
+                {
+
+                    "No": 34,
+                    "Party": "Pushya Creation",
+                    "Address": "236 to 238, Vijay Nagar, Aai Mata Road",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24ASSPR5654H1Z5"
+                },
+                {
+
+                    "No": 35,
+                    "Party": "Rudraksh Lace",
+                    "Address": "13-14, Ankash Complex, Netal De Soc, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AXQPD0100R1ZJ"
+                },
+                {
+
+                    "No": 36,
+                    "Party": "Sundaram Enterprise",
+                    "Address": "4, Vikram Nagar Soc, Punagam",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24BHUPK9976R1ZU"
+                },
+                {
+
+                    "No": 37,
+                    "Party": "Tarrah Fashion",
+                    "Address": "Pandesara",
+                    "City": "Surat",
+                    "State": "Gujarat",
+                    "GSTNO": "24AALFT3175A1ZE"
+                }
 
         ]
 	}

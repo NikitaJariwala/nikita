@@ -21,6 +21,7 @@
         "pretty": true,
         "skipLibCheck": true
     },
+    "paths": { "@angular/*": [ "../node_modules/@angular/*" ] },
     "include": [
         "src/app/**/*.ts"
     ],
