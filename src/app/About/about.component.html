@@ -95,8 +95,7 @@
                 </div>
                 <div class="col-xs-2 text-right input-container" style="font-size:14px">
 
-                    {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :"" }}
-                </div>
+                    {{(+item.cost * +item.qty)!=0 ? +((+item.cost * +item.qty).toFixed(2)) :"" }}                </div>
             </div>
             <!-- <div class="row invoice-item">
                 <div class="col-xs-12 add-item-container" [hidden]="printMode">
@@ -178,7 +177,7 @@
             <div style="margin-left: 16px; font-weight:700;">Checked By:</div>
         </div> -->
         <div class="col-xs-6">
-            <div style="margin-left: 16px; font-weight:700;">Recived By</div>
+            <div style="margin-left: 16px; font-weight:700;">Received By</div>
         </div>
         <div class="col-xs-6">
             <div style="margin-left: 16px; font-weight:700; ">FOR, SHAKSHI TRADERS</div>
