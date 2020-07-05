@@ -106,30 +106,38 @@
         </div>
     </div>
     <div class="row" style="border-bottom: 0.5px solid #404040; border-top: 0.5px solid #404040">
-        <div class="col-xs-12">
-            <div style="width: 15%;float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">
-                <div class="row">
-                    <div class=" text-right" style="display: inline-block;">Sub Total : <input style="width:15px"/></div>
-                    <div class=" text-right" style="width: 9%;display: inline-block;">{{invoiceSubTotal() }}</div>
-                </div>
-                <div class="row">
-                    <div class=" text-right" style="display: inline-block;">SGST : <input [(ngModel)]="invoice.stax" style="width:35px"></div>
-                    <div class=" text-right" style="width: 9%;display: inline-block;">{{calculateSGST()}}</div>
-                </div>
-                <div class="row">
-                    <div class="text-right" style="display: inline-block;">CGST : <input [(ngModel)]="invoice.ctax" style="width:35px"></div>
-                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateCGST()}}</div>
-                </div>
-                <div class="row">
-                    <div class="text-right" style="display: inline-block;">IGST : <input [(ngModel)]="invoice.itax" style="width:35px"></div>
-                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateIGST()}}</div>
-                </div>
-                <div class="row">
-                    <div class="text-right" style="font-weight:600; display: inline-block;">Grand Total : </div>
-                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateGrandTotal()}}</div>
-                </div>
-            </div>
-        </div>
+        <section style="float: right; border-left: 0.5px solid #404040; padding-left: 10px;">
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+                <!--<div
+                    style="width: 15%;float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">-->
+                <tr >
+                    <td style="text-align: left;">Sub Total : <input style="width:15px"/>
+                    </td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{invoiceSubTotal().toFixed(2) }}</td>
+                </tr>
+                <tr >
+                    <td style="text-align: left;">SGST : <input [(ngModel)]="invoice.stax"
+                                                                style="width:35px"></td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateSGST().toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">CGST : <input [(ngModel)]="invoice.ctax"
+                                                                style="width:35px"></td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateCGST().toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">IGST : <input [(ngModel)]="invoice.itax"
+                                                                style="width:35px"></td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateIGST().toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <th style="font-weight:600; text-align: left;">Grand Total :</th>
+                    <th style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateGrandTotal().toFixed(2)}}</th>
+                </tr>
+                </tbody>
+            </table>
+        </section>
     </div>
     <div class="row" style=" border-bottom: 0.5px solid #404040">
         <div style="margin-left: 16px; font-weight:600; line-height:32px; display: inline-block;">IN WORDS : </div>
