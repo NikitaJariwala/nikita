@@ -17,11 +17,62 @@ let AboutComponent = class AboutComponent {
         this.printMode = false;
         this.logoRemoved = false;
         this.logo = '../src/assets/ST1.jpg';
+        this.textiles_name = ['janvi', 'megha', 'ram_snehi'];
+        this.textiles = {
+            'janvi': {
+                'name': 'Janvi Textiles',
+                'trade': 'JANVI TEXTILES',
+                'GST_NO': '24AFZPJ5357F1Z1',
+                'address': '68, Ankit Estate, sayan suger factory road, sayan, Surat, Gujrat - 395130',
+                'phone_no': '(+91) 8238379059, (+91) 9327739661',
+                'bank_name': 'THE SUTEX CO-OP BANK LTD.',
+                'account_no': '2480041073429',
+                'ifsc_code': 'SUTB0248004',
+                'bank_branch': 'KATARGAM, SURAT',
+                'logo': '../src/assets/JT.jpg'
+            },
+            'ram_snehi': {
+                'name': 'Shree Ram Snehi Industries',
+                'trade': 'SHREE RAM SNEHI INDUSTRIES',
+                'GST_NO': '24ABCPJ5679F1ZN',
+                'address': 'P-103, OLD G.I.D.C, Katargam, Surat, Gujrat - 395004',
+                'phone_no': '(+91) 9327739661',
+                'bank_name': 'BANK OF BARODA',
+                'account_no': '07310200000757',
+                'ifsc_code': 'BARBOFULPAD',
+                'bank_branch': 'FULPADA, SURAT',
+                'logo': '../src/assets/Ram.jpg'
+            },
+            'megha': {
+                'name': 'Megha Textiles',
+                'trade': 'MEGHA TEXTILES',
+                'GST_NO': '24AFZPJ5362C1ZA',
+                'address': '66, Ankit Estate, sayan suger factory road, sayan, Surat, Gujrat - 395130',
+                'phone_no': '(+91) 9998399834, (+91) 9327739661',
+                'bank_name': 'THE SUTEX CO-OP BANK LTD.',
+                'account_no': '2480041073428',
+                'ifsc_code': 'SUTB0248004',
+                'bank_branch': 'KATARGAM, SURAT',
+                'logo': '../src/assets/MT.jpg'
+            }
+        };
         this.invoice = {
-            stax: "6%",
-            ctax: "6%",
-            itax: "6%",
+            stax: "2.5%",
+            ctax: "2.5%",
+            itax: "2.5%",
             invoice_number: 10,
+            textile_info: {
+                'name': 'Janvi Textiles',
+                'trade': 'JANVI TEXTILES',
+                'GST_NO': '24AFZPJ5357F1Z1',
+                'address': '68, Ankit Estate, sayan suger factory road, sayan, Surat, Gujrat - 395130',
+                'phone_no': '(+91) 8238379059, (+91) 9327739661',
+                'bank_name': 'THE SUTEX CO-OP BANK LTD.',
+                'account_no': '2480041073429',
+                'ifsc_code': 'SUTB0248004',
+                'bank_branch': 'KATARGAM, SURAT',
+                'logo': '../src/assets/JT.jpg'
+            },
             customer_info: {
                 name: 'Nikita Chevli',
                 no: '91',
@@ -36,6 +87,7 @@ let AboutComponent = class AboutComponent {
                 date: '08/01/2019',
                 dueDate: '08/01/2019',
                 agent: '',
+                broker: ''
             },
             items: [
                 { qty: '', description: '', cost: '', hsnCode: '' },
@@ -46,9 +98,7 @@ let AboutComponent = class AboutComponent {
                 { qty: '', description: '', cost: '', hsnCode: '' },
                 { qty: '', description: '', cost: '', hsnCode: '' },
                 { qty: '', description: '', cost: '', hsnCode: '' },
-                { qty: '', description: '', cost: '', hsnCode: '' },
-                { qty: '', description: '', cost: '', hsnCode: '' },
-                { qty: '', description: '', cost: '', hsnCode: '' },
+                { qty: '', description: '', cost: '', hsnCode: '' }
             ]
         };
         this.name = 'Angular 6';
@@ -188,19 +238,19 @@ let AboutComponent = class AboutComponent {
         this.invoice.items.forEach((item) => {
             total += (+(item.qty) * +(item.cost));
         });
-        return total;
+        return +(total.toFixed(2));
     }
     ;
     calculateSGST() {
-        return ((+(this.invoice.stax.substr(0, this.invoice.stax.indexOf('%'))) * this.invoiceSubTotal()) / 100);
+        return +((+(this.invoice.stax.substr(0, this.invoice.stax.indexOf('%'))) * this.invoiceSubTotal()) / 100).toFixed(2);
     }
     ;
     calculateCGST() {
-        return ((+(this.invoice.ctax.substr(0, this.invoice.ctax.indexOf('%'))) * this.invoiceSubTotal()) / 100);
+        return +((+(this.invoice.ctax.substr(0, this.invoice.ctax.indexOf('%'))) * this.invoiceSubTotal()) / 100).toFixed(2);
     }
     ;
     calculateIGST() {
-        return ((+(this.invoice.itax.substr(0, this.invoice.itax.indexOf('%'))) * this.invoiceSubTotal()) / 100);
+        return +((+(this.invoice.itax.substr(0, this.invoice.itax.indexOf('%'))) * this.invoiceSubTotal()) / 100).toFixed(2);
     }
     ;
     // Calculates the grand total of the invoice
@@ -345,6 +395,21 @@ let AboutComponent = class AboutComponent {
     }
     ;
     submitForm() {
+    }
+    onTextileChange(textile_name) {
+        const textile = this.textiles[textile_name];
+        this.invoice.textile_info = {
+            'name': textile.name,
+            'GST_NO': textile.GST_NO,
+            'address': textile.address,
+            'phone_no': textile.phone_no,
+            'bank_name': textile.bank_name,
+            'account_no': textile.account_no,
+            'ifsc_code': textile.ifsc_code,
+            'bank_branch': textile.bank_branch,
+            'trade': textile.trade,
+            'logo': textile.logo
+        };
     }
     onSelectChange(customerNo) {
         customer_1.Customer.get(customerNo)

@@ -2,8 +2,8 @@
     <img style="z-index: -1;
     align-items: left;
     margin-top: 10px;
-    width: 117px;
-    position: absolute;" [hidden]="logoRemoved" id="company_logo" src="{{ logo }}" alt="your image" />
+    width: 108px;
+    position: absolute;" [hidden]="logoRemoved" id="company_logo" src="{{invoice.textile_info.logo}}" alt="your image"/>
     <div style="margin-right: 95px;float: right;">
         <div class="invoice-number-container" style="z-index: -1;
     align-items: left;
@@ -12,8 +12,13 @@
     position: absolute;">
             <div>TAX INVOICE</div>
         </div>
-
     </div>
+    <div class="noPrint" [hidden]="printMode"><select required [(ngModel)]="invoice.customer_info.name1"
+                                                      (change)="onTextileChange($event.target.value)">
+        <!-- <== changed -->
+        <option selected="selected" disabled>customer...</option>
+        <option *ngFor="let textile of textiles_name" value={{textile}}>{{ textile }}</option>
+    </select></div>
     <div class="col-xs-12" style="text-align:center">
 
         || Shree Ram ||
@@ -22,80 +27,100 @@
     <div class=" heading">
 
         <h1 style="font-size:30px">
-
-            <b>Shakshi Traders</b>
+            <b>{{invoice.textile_info.name}}</b>
         </h1>
     </div>
-    <div class="heading" >
-        <h5 style="font-size:14px; font-weight:600;">Manufacturers and Traders of Jari Lace, Border and Narrow Fab.</h5>
+    <div class="heading">
+        <h5 style="font-size:14px; font-weight:600;">Manufacturers of Art Silk Cloth.</h5>
     </div>
-    <div class="heading1" >
-        <h5 style="font-size:14px;font-weight:600;">91,Laxmikant Society, katargam, SURAT-GUJRAT.</h5>
-         <div style="font-size:14px;font-weight:600;">Ph no : (+91) 9879411018, (+91) 9909258090</div>
+    <div class="heading1">
+        <h5 style="font-size:14px;font-weight:600;">{{invoice.textile_info.address}}</h5>
+        <div style="font-size:14px;font-weight:600;">Ph no : {{invoice.textile_info.phone_no}}</div>
     </div>
-    <div class="heading1" >
-        <div style="font-size:15px; font-weight:600; padding-top: 2px; padding-bottom: 2px;">GSTIN NO : 24ATCPJ7889F1ZE</div>
+    <div class="noPrint" [hidden]="printMode"><select required [(ngModel)]="invoice.customer_info.name1"
+                                                      (change)="onSelectChange($event.target.value)">
+        <!-- <== changed -->
+        <option selected="selected" disabled>customer...</option>
+        <option *ngFor="let customer of customers" value={{customer.NO}}>{{ customer.Party }}</option>
+    </select></div>
+    <div class="heading1">
+        <div style="font-size:15px; font-weight:600; padding-top: 2px; padding-bottom: 2px;">GSTIN NO :
+            {{invoice.textile_info.GST_NO}}
+        </div>
     </div>
 
 
     <div class="row infos">
         <div class="col-xs-7" style="border-right: 1px solid #404040;">
-                <div class="noPrint" [hidden]="printMode"> <select required [(ngModel)]="invoice.customer_info.name1" (change)="onSelectChange($event.target.value)"> <!-- <== changed -->
-                    <option selected="selected" disabled>customer...</option>
-                    <option *ngFor="let customer of customers" value= {{customer.NO}}>{{ customer.Party }}</option>
-                  </select></div>
-            <div >M/s.<input style="margin-left: 2%; font-weight:700;" type="text" [(ngModel)]="invoice.customer_info.name"/></div>
 
-            <div ><input style="margin-left: 5%; font-weight:600; width: 96%;" type="text"
-                                               [(ngModel)]="invoice.customer_info.address1"/></div>
-            <div style=" font-weight:600; ">City :<input style="margin-left: 3%; font-size:14px; font-weight:700;" type="text"
-                                                            [(ngModel)]="invoice.customer_info.city"/></div>
-            <div style=" font-weight:600; ">State :<input style="margin-left: 2%; font-size:14px; width:79%; font-weight:700;" type="text"
-                                                             [(ngModel)]="invoice.customer_info.state"/></div>
-            <div style=" font-weight:600; ">GSTIN :<input style="margin-left: 2%; font-size:14px; width:79%; font-weight:700;" type="text"
-                                                             [(ngModel)]="invoice.customer_info.gstin"/></div>
+            <div>M/s.<input style="margin-left: 2%; font-weight:700;" type="text"
+                            [(ngModel)]="invoice.customer_info.name"/></div>
+
+            <div><textarea name="Text1" style="margin-left: 5%; font-weight:600; width: 96%;" type="text"
+                           [(ngModel)]="invoice.customer_info.address1"></textarea></div>
+            <div style=" font-weight:600; ">City :<input style="margin-left: 3%; font-size:14px; font-weight:700;"
+                                                         type="text"
+                                                         [(ngModel)]="invoice.customer_info.city"/></div>
+            <div style=" font-weight:600; ">State :<input
+                style="margin-left: 2%; font-size:14px; width:79%; font-weight:700;" type="text"
+                [(ngModel)]="invoice.customer_info.state"/></div>
+            <div style=" font-weight:600; ">GSTIN :<input
+                style="margin-left: 2%; font-size:14px; width:79%; font-weight:700;" type="text"
+                [(ngModel)]="invoice.customer_info.gstin"/></div>
 
 
         </div>
         <div class="col-xs-5 right">
-            <div class="input-container" style="font-weight:600; ">INVOICE NO:<input type="text" style="margin-left:2px;width:61px;"
-                                                                  [(ngModel)]="invoice.company_info.invoicNo"/></div>
+            <div class="input-container" style="font-weight:600; ">INVOICE NO:<input type="text"
+                                                                                     style="margin-left:2px;width:61px;"
+                                                                                     [(ngModel)]="invoice.company_info.invoicNo"/>
+            </div>
             <div class="input-container" style="font-weight:600; ">DATE:<input style="margin-left: 2%;" type="text"
-                                                            [(ngModel)]="invoice.company_info.date"/></div>
+                                                                               [(ngModel)]="invoice.company_info.date"/>
+            </div>
 
-            <div class="input-container" style="font-weight:600; ">HSN CODE:<input style="margin-left: 8px;width: 133px;" type="text"
-                                                             [(ngModel)]="invoice.company_info.agent"/></div>
+            <div class="input-container" style="font-weight:600; ">HSN CODE:<input
+                style="margin-left: 8px;width: 133px;" type="text"
+                [(ngModel)]="invoice.company_info.agent"/></div>
+            <div class="input-container" style="font-weight:600; ">BROKER:<input style="margin-left: 8px;width: 133px;"
+                                                                                 type="text"
+                                                                                 [(ngModel)]="invoice.company_info.broker"/>
+            </div>
         </div>
     </div>
     <div>
         <div class="items-table">
-            <div class="row header" style="font-size:14px">
-                <div class="col-xs-1 ">NO</div>
-                <div class="col-xs-6 borderleft" style="border-right: 0.5px solid #404040">DESCRIPTION OF ITEMS</div>
-                <div class="col-xs-1 ">QTY</div>
-                <div class="col-xs-2 borderleft" style="border-right: 0.5px solid #404040">RATE</div>
-                <div class="col-xs-2  text-right">AMOUNT</div>
+            <div class="row header" style="font-size:14px; display: flex">
+                <div class="col-xs-1 text-center">No</div>
+                <div class="col-xs-4 borderleft" style="border-right: 0.5px solid #404040"> Particulars</div>
+                <div class="col-xs-1 text-center" style="padding: 0 !important;">Pieces</div>
+                <div class="col-xs-2 text-center borderleft">Total Meter</div>
+                <div class="col-xs-2 text-center borderleft" style="border-right: 0.5px solid #404040">Rate</div>
+                <div class="col-xs-2  text-right">Amount</div>
             </div>
-            <div class="row invoice-item"  *ngFor="let item of invoice.items; let i = index">
-                <div class="col-xs-1 remove-item-container" [style.display]="!printMode?'none':'block'">
+            <div class="row invoice-item" *ngFor="let item of invoice.items; let i = index">
+                <div class="col-xs-1 remove-item-container text-center" [style.display]="!printMode?'none':'block'">
                     <button [hidden]="!printMode" (click)="removeItem(item)" class="btn btn-danger">[X]</button>
                 </div>
-                <div class="col-xs-1 input-container" >
-                    <div >{{item.description!=""?i+1:""}}</div>
+                <div class="col-xs-1 input-container text-center">
+                    <div>{{item.description!=""?i+1:""}}</div>
                 </div>
-                <div class="col-xs-6 input-container  borderleft" style="border-right: 0.5px solid #404040">
+                <div class="col-xs-4 input-container  borderleft" style="border-right: 0.5px solid #404040">
                     <input [(ngModel)]="item.description" style="width:100%; font-size:14px"/>
                 </div>
 
-                <div class="col-xs-1 input-container ">
-                    <input [(ngModel)]="item.qty" style="font-size:14px" value="1" size="4" required />
+                <div class="col-xs-1 input-container text-center" style="padding: 0 !important;">
+                    <input [(ngModel)]="item.piece" style="font-size:14px; text-align:center;" value="1" size="2" required/>
                 </div>
-                <div class="col-xs-2 input-container borderleft" style="border-right: 0.5px solid #404040">
-                    <input [(ngModel)]="item.cost" style="font-size:14px; width:100%" value="0.00" required size="6"/>
+                <div class="col-xs-2 input-container text-center borderleft">
+                    <input [(ngModel)]="item.qty" style="font-size:14px; width:100%; text-align:center;" value="0.00" required size="6"/>
+                </div>
+                <div class="col-xs-2 input-container text-center borderleft" style="border-right: 0.5px solid #404040">
+                    <input [(ngModel)]="item.cost" style="font-size:14px; width:100%; text-align:center;" value="0.00" required size="6"/>
                 </div>
                 <div class="col-xs-2 text-right input-container" style="font-size:14px">
 
-                    {{(+item.cost * +item.qty)!=0 ?(+item.cost * +item.qty) :"" }}
+                    {{(+item.cost * +item.qty)!=0 ? +((+item.cost * +item.qty).toFixed(2)) :"" }}
                 </div>
             </div>
             <!-- <div class="row invoice-item">
@@ -106,44 +131,53 @@
         </div>
     </div>
     <div class="row" style="border-bottom: 0.5px solid #404040; border-top: 0.5px solid #404040">
-        <div class="col-xs-12">
-            <div style="width: 15%;float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">
-                <div class="row">
-                    <div class=" text-right" style="display: inline-block;">Sub Total : <input style="width:15px"/></div>
-                    <div class=" text-right" style="width: 9%;display: inline-block;">{{invoiceSubTotal() }}</div>
-                </div>
-                <div class="row">
-                    <div class=" text-right" style="display: inline-block;">SGST : <input [(ngModel)]="invoice.stax" style="width:35px"></div>
-                    <div class=" text-right" style="width: 9%;display: inline-block;">{{calculateSGST()}}</div>
-                </div>
-                <div class="row">
-                    <div class="text-right" style="display: inline-block;">CGST : <input [(ngModel)]="invoice.ctax" style="width:35px"></div>
-                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateCGST()}}</div>
-                </div>
-                <div class="row">
-                    <div class="text-right" style="display: inline-block;">IGST : <input [(ngModel)]="invoice.itax" style="width:35px"></div>
-                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateIGST()}}</div>
-                </div>
-                <div class="row">
-                    <div class="text-right" style="font-weight:600; display: inline-block;">Grand Total : </div>
-                    <div class="text-right" style="width: 9%;display: inline-block;">{{calculateGrandTotal()}}</div>
-                </div>
-            </div>
-        </div>
+        <section style="float: right; border-left: 0.5px solid #404040; padding-left: 10px;">
+            <table cellspacing="0" cellpadding="0">
+                <tbody>
+            <!--<div
+                style="width: 15%;float: right; margin-right: 78px; padding-left:30px; border-left: 0.5px solid #404040; ">-->
+                <tr >
+                    <td style="text-align: left;">Sub Total : <input style="width:15px"/>
+                    </td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{invoiceSubTotal().toFixed(2) }}</td>
+                </tr>
+                <tr >
+                    <td style="text-align: left;">SGST : <input [(ngModel)]="invoice.stax"
+                                                                                          style="width:35px"></td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateSGST().toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">CGST : <input [(ngModel)]="invoice.ctax"
+                                                                                         style="width:35px"></td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateCGST().toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: left;">IGST : <input [(ngModel)]="invoice.itax"
+                                                                                         style="width:35px"></td>
+                    <td style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateIGST().toFixed(2)}}</td>
+                </tr>
+                <tr>
+                    <th style="font-weight:600; text-align: left;">Grand Total :</th>
+                    <th style="min-width: 100px; padding-right: 15px; text-align: right;">{{calculateGrandTotal().toFixed(2)}}</th>
+                </tr>
+               </tbody>
+            </table>
+        </section>
     </div>
     <div class="row" style=" border-bottom: 0.5px solid #404040">
-        <div style="margin-left: 16px; font-weight:600; line-height:32px; display: inline-block;">IN WORDS : </div>
+        <div style="margin-left: 16px; font-weight:600; line-height:32px; display: inline-block;">IN WORDS :</div>
         <div style="display: inline-block;"><i>{{convertIntoWord()}}</i></div>
     </div>
 
-    <div class="row"  style=" border-bottom: 0.5px solid #404040; padding-bottom:9px; font-size: 11px; padding-top: 10px;">
+    <div class="row"
+         style=" border-bottom: 0.5px solid #404040; padding-bottom:9px; font-size: 11px; padding-top: 10px;">
         <div class="col-xs-7">
-            <div style=" font-weight:500;"><b>BANK NAME :</b> THE PANCHSHEEL MERCANTILE CO-OP. BANK LTD</div>
-            <div style=" font-weight:500;"><b>BANK ACCOUNT NO :</b> 1006021000612</div>
+            <div style=" font-weight:500;"><b>BANK NAME :</b> {{invoice.textile_info.bank_name}}</div>
+            <div style=" font-weight:500;"><b>BANK ACCOUNT NO :</b> {{invoice.textile_info.account_no}}</div>
         </div>
         <div class="col-xs-5">
-            <div style="font-weight:500;"><b>BANK IFSC CODE :</b> YESB0PMCB06</div>
-            <div style="font-weight:500;"><b>BANKBRANCH :</b> KATARGAM,SURAT</div>
+            <div style="font-weight:500;"><b>BANK IFSC CODE :</b> {{invoice.textile_info.ifsc_code}}</div>
+            <div style="font-weight:500;"><b>BANKBRANCH :</b> {{invoice.textile_info.bank_branch}}</div>
         </div>
     </div>
 
@@ -154,10 +188,10 @@
     <div>
         <div style=" margin-top: 5px; font-weight:500; font-size: 12px">
             <ol>
-                <li>Goods once sold will not be back or exchanged.</li>
+                <li><b>No dyeing guarantee</b>, Goods once sold will not be back or exchanged.</li>
                 <li>Interest 2.5% Per Month will be charged on amount remaining unpaid from the date of bill</li>
                 <li>Complaint if any regarding this invoice must be setted within 24 hour.</li>
-                <li>Subject to surat Jurisdiction</li>
+                <li><b>Subject to surat Jurisdiction</b></li>
             </ol>
         </div>
     </div>
@@ -170,19 +204,19 @@
             <div style="margin-left: 16px; font-weight:700;">Checked By:</div>
         </div> -->
         <div class="col-xs-6">
-            <div style="margin-left: 16px; font-weight:700;">Recived By</div>
+            <div style="margin-left: 16px; font-weight:700;">Received By</div>
         </div>
         <div class="col-xs-6">
-            <div style="margin-left: 16px; font-weight:700; ">FOR, SHAKSHI TRADERS</div>
+            <div style="margin-left: 16px; font-weight:700; ">FOR, {{invoice.textile_info.trade}}</div>
         </div>
     </div>
 
     <div class="noPrint actions" style="margin-top: 12px">
-        <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()" >Print</a>
+        <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printInfo()">Print</a>
         <a href="#" class="btn btn-primary" (click)="clearLocalStorage()">Reset</a>
         <a href="#" class="btn btn-primary" [hidden]="printMode" (click)="printMode = true;">Turn On Print Mode</a>
         <a href="#" class="btn btn-primary" [hidden]="!printMode" (click)="printMode = false;">Turn Off Print Mode</a>
-        <button  class="btn btn-primary"  (click)="onButtonClick()">go to home</button>
+        <button class="btn btn-primary" (click)="onButtonClick()">go to home</button>
 
     </div>
 </div>

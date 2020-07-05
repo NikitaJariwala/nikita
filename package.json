@@ -11,7 +11,8 @@
     "build:once": "webpack --config config/webpack.dev.js",
     "package": "electron-builder .",
     "build:prod": "webpack --config config/webpack.prod.js",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "build:32": "electron-packager . app --out=dist/win --platform=win32 --arch=ia32"
   },
   "repository": {
     "type": "git",
